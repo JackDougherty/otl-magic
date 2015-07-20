@@ -37,3 +37,4 @@ Original caption: Drag the time slider (or click on a decade) to view the relati
 
 ## TO DO
 - Replace depreciated YUI slider (http://yui.github.io/yui2/docs/yui_2.9.0_full/slider/index.html) with jQuery slider (https://jqueryui.com/slider/#steps)
+- increase font size for "Currently Viewing" (year) in timeslider
