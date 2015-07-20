@@ -1,0 +1,87 @@
+/* --- UConn Global CSS - Remove at your own risk. ------------------------------------------------------------ */
+/* --- HEAD-FOOT CSS ------------------ */ 
+/* These files needed for header and footer areas */
+/* layout */                     @import url("http://magic.lib.uconn.edu/css/global/4.0/head-foot/hf-common.css"); 
+/* colors */                     @import url("http://magic.lib.uconn.edu/css/global/4.0/head-foot/hf-blueG.css");
+/* --- MIDDLE AREA CSS ---------------- */ 
+/* These files needed for everything between the header and footer */
+/* BASE TEMPLATE FILES */ 
+/* blueprint layout grid */      @import url("http://magic.lib.uconn.edu/css/global/4.0/middle/base/grid.css"); 
+/* removes default typography */ @import url("http://magic.lib.uconn.edu/css/global/4.0/middle/base/reset.css");
+/* new default typography */     @import url("http://magic.lib.uconn.edu/css/global/4.0/middle/base/content.css");
+/* drop-down nav layout */       @import url("http://magic.lib.uconn.edu/css/global/4.0/middle/base/nav.css");
+/* UCONN STANDARD THEME */ 
+/* common styles */    		     @import url("http://magic.lib.uconn.edu/css/global/4.0/middle/uconn/common.css");
+/* custom colors and type */     @import url("http://magic.lib.uconn.edu/css/global/4.0/middle/uconn/blueG.css");
+
+/* --- Add your CSS below this line --------------------------------------------------------------------------- */
+/* 
+	UConn Template 4.1 Patch
+	April 2013
+	by UConn WebDev
+	andrew.bacon@uconn.edu
+*/
+
+
+/* 4.1 Common - used in both the blue and grey/white headers.  */
+html body.uc-uconn-wrap #uc-head-wrap #uc-head h1 a {
+	padding-left:195px !important;
+	font-family:'Proxima Nova', Helvetica, Arial, sans-serif !important;
+	}
+	html body.uc-uconn-wrap #uc-head-wrap #uc-head h1 a {
+		padding-left:195px !important;
+		font-family:'Proxima Nova', Helvetica, Arial, sans-serif !important;
+		}
+		html body.uc-uconn-wrap #uc-head-wrap #uc-head h1 a#uc-uconn {
+			height:62px !important;
+			width:168px !important;
+			display:block !important;
+			margin-top:14px !important;
+			padding:0 !important;
+			}
+			html body.uc-uconn-wrap #uc-head-wrap #uc-head h1 a#uc-uconn img {
+				height:62px !important;
+				width:168px !important;
+				}
+		html body.uc-uconn-wrap #uc-head-wrap #uc-head h1 #uc-website-title {
+			font-size:90%;
+			}
+		html body.uc-uconn-wrap #uc-head-wrap #uc-head h1 #uc-secondary-title {
+			font-size:85%;
+			}
+			
+/* MODIFIED BY JACK to remove background color 4.1 Blue Header/Footer - for sites that use the blue header.  */
+	html body {
+		background-color:#none !important;
+		}
+	html body #uc-head-wrap {
+		background-color:#0f1938 !important;
+		}
+	html body #uc-foot-wrap {
+		background-color:#0f1938 !important;
+		}
+
+
+#uc-uconn2 h1 a {
+	font-family:'Proxima Nova', Helvetica, Arial, sans-serif;
+	padding-left:250px;
+	display:block;
+	width:450px;
+}
+#uc-head h1 a#uc-uconn2 {
+	position:absolute;
+	top:18px;
+	left:0;
+	padding:0;
+	width:auto;
+}
+#uc-head h1 #uc-secondary-title2 a {
+	font-size:1.8em;
+	margin-bottom:-7px;
+	padding-bottom:1px;
+}
+#uc-head h1 #uc-website-title2 a {
+	font-size:2.1em;
+	padding-top:14px;
+	left: -20px;
+}
