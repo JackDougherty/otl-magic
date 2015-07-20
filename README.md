@@ -1,7 +1,10 @@
 # magic-otl
 On The Line maps and tools created with [MAGIC UConn Libraries](http://magic.lib.uconn.edu). Simplified versions of the original open-source code to more easily insert interactive maps as iframes into the web edition of the book (http://ontheline.trincoll.edu).
 
-*Note* that all underscores (_) in the original pathnames have been changed to hyphens (-) to be consistent with new OTL digital material
+## Notes
+- **All underscores** (_) in the original pathnames have been changed to hyphens (-) to be consistent with new OTL digital material
+- **Custom-otl.css** created to address timeslider css issues
+- **thumb-n.gif** uploaded to address depreciation issue in timeslider
 
 ## Race Restrictive Covenants in Property Deeds, Hartford-area, 1940s
 http://jackdougherty.github.io/otl-magic/doclink-covenant.html
