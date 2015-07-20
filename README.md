@@ -31,3 +31,6 @@ Original caption: Drag the time slider (or click on a decade) to view changes in
 http://jackdougherty.github.io/otl-magic/timeslider-homevalue.html
 
 Original caption: Drag the time slider (or click on a decade) to view the relative value of a single-family home in the Hartford region. Click on any town to view its name. Notes: Average Dwelling Value, indexed to Hartford region mean, where darker green means higher dollar value. 1910-1980 based on CT Tax Commissioner assessed value of average dwelling for Hartford County, while 1990-2000 (actually 1991, 2002) based on CRCOG single-family home sales for Hartford region. 
+
+## TO DO
+- Replace depreciated YUI slider (http://yui.github.io/yui2/docs/yui_2.9.0_full/slider/index.html) with jQuery slider (https://jqueryui.com/slider/#steps)
