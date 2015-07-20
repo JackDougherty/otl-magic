@@ -1,0 +1,345 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"> 
+<html> 
+<head> 
+<title>OntheLine Calculator</title> 
+ 
+<script type="text/javascript"> 
+ 
+<!-- hide script from older browsers
+// some constants and default (average) values
+var loan_life = 30;			// years to pay off the loan
+var frequency = 12;			// how many payments a year
+var min_pti = 0.28;
+var max_pti = 0.33;
+var min_dti = 0.36;
+var max_dti = 0.38;
+var periods = loan_life * frequency;	// the number of periods (and payments) in the loan
+ 
+function Calculate ( form )
+{
+	var good, periodic_income, periodic_debt, intrate, down, taxins,
+		max_total_pmt, max_pmt, temp, max_limit, payment,
+		max_loan, max_price, max_total;
+ 
+	good = VerifyInputs( form );
+	if ( !good ) return;
+ 
+	// read some of the values from the form
+	periodic_income = form.income.value / frequency;
+	periodic_debt = parseFloat( form.debt.value );
+	down = parseFloat( form.down.value );
+	if ( isNaN( down ) ) { down = 0; }
+	intrate = parseFloat( form.intrate.value );
+ 
+	// calculate the periodic taxes and insurance
+	taxins = GetPeriodicTaxesInsurance( form );
+ 
+ 
+	// determine the lower level (minimum) for the max monthly payment as a bank would determine it
+	min_total_pmt = periodic_income * min_pti;
+	temp = (periodic_income * min_dti) - periodic_debt;
+	if ( temp < min_total_pmt ) {
+		min_limit = "debt";
+		min_total_pmt = temp;
+	} else {
+		min_limit = "income";
+	}
+ 
+	// determine the upper level (maximum) for the max monthly payment as a bank would determine it
+	max_total_pmt = periodic_income * max_pti;
+	temp = (periodic_income * max_dti) - periodic_debt;
+	if ( temp < max_total_pmt ) {
+		max_limit = "debt";
+		max_total_pmt = temp;
+	} else {
+		max_limit = "income";
+	}
+ 
+	// When we calculate the loan the bank can give, we subtract the taxes and insurance
+	// from the maximum payment because the bank doesn't give you a big enough loan to
+	// cover your insurance and taxes even though they are included while the bank calculates
+	// the maximum payment you can afford.
+ 
+	// get the lower maximum (here called "minimum") loan the bank will give
+	min_pmt = min_total_pmt - taxins;
+	min_loan = GetMortgageLoan( intrate, min_pmt );
+	min_price = min_loan + down;
+ 
+	// get the upper maximum (here called "maximum") loan the bank will give
+	max_pmt = max_total_pmt - taxins;
+	max_loan = GetMortgageLoan( intrate, max_pmt );
+	max_price = max_loan + down;
+ 
+ /*
+	// display the results on the form, all at once
+	form.price_min.value = AddThousandsCommasDecimal( min_price );
+	form.loan_amt_min.value = AddThousandsCommasDecimal( min_loan );
+	form.pmt_min.value = AddThousandsCommasDecimal( min_pmt );
+	form.taxins_pmt_min.value = AddThousandsCommasDecimal( taxins );
+	form.total_pmt_min.value = AddThousandsCommasDecimal( min_total_pmt );
+	form.lmt_factor_min.value = min_limit;
+	*/
+ 
+	form.price_max.value = AddThousandsCommasDecimal( max_price );
+	form.loan_amt_max.value = AddThousandsCommasDecimal( max_loan );
+	form.pmt_max.value = AddThousandsCommasDecimal( max_pmt );
+	form.taxins_pmt_max.value = AddThousandsCommasDecimal( taxins );
+	form.total_pmt_max.value = AddThousandsCommasDecimal( max_total_pmt );
+	form.lmt_factor_max.value = max_limit;
+}
+ 
+function VerifyInputs ( form )
+{
+	var val;
+ 
+	val = form.income.value;
+	if ( val == null || val == "" || isNaN( val ) || val <= 0 ) {
+		alert( "You have to enter a valid, positive income!" );
+		form.income.focus();
+		return false;
+	}
+ 
+	val = form.intrate.value;
+	if ( val == null || val == "" || isNaN( val ) || val <= 0 ) {
+		alert( "You have to enter a valid, positive interest rate!" );
+		form.intrate.focus();
+		return false;
+	}
+ 
+	return true;
+}
+ 
+function GetMortgageLoan ( intrate, payment )
+{
+	var period_intrate, disc_factor, principal;
+ 
+	// get the interest rate for one period (e.g. month)
+	period_intrate = intrate / (frequency * 100);
+ 
+	// calculate the discount factor
+	disc_factor = ( Math.pow( 1 + period_intrate, periods ) - 1 )
+								/
+		( period_intrate *  Math.pow( 1 + period_intrate, periods ) )
+	;
+ 
+	principal = payment * disc_factor;
+ 
+	return principal;
+}
+ 
+function GetPeriodicTaxesInsurance ( form )
+{
+	var str_taxes, str_ins, yearly_taxes, yearly_ins, periodic_txins;
+ 
+	str_taxes = form.taxes.value;
+	str_ins = form.insurance.value;
+	if ( str_taxes == "" ) {
+		yearly_taxes = 0;
+	} else {
+		yearly_taxes = parseFloat( str_taxes );
+	}
+	if ( str_ins == "" ) {
+		yearly_ins = 0;
+	} else {
+		yearly_ins = parseFloat( str_ins );
+	}
+	periodic_txins = (yearly_taxes + yearly_ins) / frequency;
+ 
+	return periodic_txins;
+}
+ 
+function process_input ( field )
+{
+	strip_number( field );
+}
+ 
+function strip_number ( field )
+{
+	var original_number = field.value;
+	var stripped_number = "";
+	var parsed_number;
+ 
+	for ( var i=0; i<original_number.length; i++ )
+	{
+		var digit = original_number.charAt(i);
+		if ( digit == '.' || !( digit < "0" || digit > "9" ) )
+		{
+			stripped_number = stripped_number + digit;
+		}
+	}
+ 
+	// this will clean up more than one decimals
+	if ( stripped_number )
+	{
+		parsed_number = parseFloat( stripped_number );
+		if ( isNaN( parsed_number ) )
+			field.value = "";
+		else
+			field.value = parsed_number;
+	}
+	else {
+		field.value = "";
+	}
+}
+ 
+function AddThousandsCommas( number )
+{
+	var T='', S = String(number), L = S.length-1, C, j;
+ 
+	for ( j=0; j<=L; j++ ) {
+		T += C = S.charAt(j);
+		if ( (j<L) && ((L-j)%3 == 0) && (C!='-') )
+			T+=',';
+	}
+	return T;
+}
+ 
+function AddThousandsCommasDecimal( number )
+{
+	var number, whole, decimal, dec_str, formatted_number;
+ 
+	if ( isNaN( number ) ) return number;
+ 
+	// get the whole part
+	whole = Math.floor( number );
+ 
+	// get the decimal up to two places and remove "0." in the beginning
+	decimal = number - whole;
+	if ( decimal != 0 )
+	{
+		decimal = round2( decimal );
+		dec_str = String( decimal );
+		dec_str = dec_str.substr( dec_str.indexOf(".") + 1 );
+		if ( dec_str.length == 1 ) { dec_str = dec_str + "0"; }
+		dec_str = "." + dec_str;
+	} else {
+		dec_str = "";
+	}
+ 
+	// merge the commas-formatted whole with the decimal
+	formatted_number = AddThousandsCommas( whole ) + dec_str;
+ 
+	return formatted_number;
+}
+ 
+function round2( number )
+{
+	if ( isNaN( number ) ) return number;
+ 
+	return Math.round(number * 100) / 100;
+}
+ 
+function clearFields( form ) {
+	form.income.value = "";
+	form.down.value = "";
+	form.debt.value = "";
+	//form.intrate.value = "";
+	
+	/*
+	form.price_min.value = "";
+	form.loan_amt_min.value = "";
+	form.pmt_min.value = "";
+	form.taxins_pmt_min.value = "";
+	form.total_pmt_min.value = "";
+	form.lmt_factor_min.value = "";
+ */
+ 
+	form.price_max.value = "";
+	form.loan_amt_max.value = "";
+	form.pmt_max.value = "";
+	form.taxins_pmt_max.value = "";
+	form.total_pmt_max.value = "";
+	form.lmt_factor_max.value = "";
+}
+// end hiding from old browsers -->
+</script> 
+</head> 
+<tr> 
+  <td valign="top" class="storyTD"> 
+  <p><h3><strong><a href="http://ontheline.trincoll.edu">On The Line</a><br>
+    Home affordability calculator for historical simulation</strong></h3><br>BETA version, last updated <!-- #BeginDate format:Am1 -->October 12, 2010<!-- #EndDate --></p>
+    <strong>REVISE: How much house can you afford to buy?</strong> How it works (*add historical dimension*): To arrive at an "affordable" home price, we followed the guidelines of most lenders. We've allowed a total debt-to-income ratio of no more than 36 percent. And we have assumed a housing payment-to-income ratio of 28% for our conservative estimate, and 33 percent for the aggressive one. Before buying, however, you should also factor in other savings needs, including retirement and college. </p> 
+  <p><span class="featuretxtTLS"><b>RETHINK and REWRITE assumptions for each year:</b> We've assumed a 30-year mortgage term, annual property tax of $3,500 and homeowners insurance of $481 -- the national average. And we do not factor in private mortgage insurance, which you'll owe if your downpayment is less than 20 percent of the purchase price. It averages from $50 to $80 per month. Plug in your own numbers for more tailor-made results.</span></p> 
+  <p>Historical simulation year [to be inserted]</p> 
+  <p>Enter your economic profile data [mort rates to be inserted automatically]<br> 
+  </p> 
+ 
+ <!-- Profile Data Entry Table --> 
+ 
+  <table cellpadding="0" cellspacing="10" border="0" width="500" bgcolor="#DDDDDD" style="border: 1px solid #7B8598;"> 
+    <td width="500"><tr valign="middle"><form name="frmHouseAfford"> 
+    <td width="14"></td> 
+    <tr valign="middle"> 
+      <td class="headersmTLS" style="padding-top: 2px; padding-bottom: 2px;">Gross annual income:</td> 
+      <td width="176" align="right" class="headersmTLS" style="padding-top: 2px; padding-bottom: 2px;">$&nbsp;<input type="text" name="income" size="10" onChange="process_input(this)" class="inputtextTLS"></td> 
+      </tr> 
+    <tr valign="middle"> 
+      <td class="headersmTLS" style="padding-top: 2px; padding-bottom: 2px;">Downpayment amount:</td> 
+      <td width="176" align="right" class="headersmTLS" style="padding-top: 2px; padding-bottom: 2px;">$&nbsp;<input type="text" name="down" size="10" onChange="process_input(this)" class="inputtextTLS"></td> 
+      </tr> 
+    <tr valign="middle"> 
+      <td class="headersmTLS" style="padding-top: 2px; padding-bottom: 2px;">Monthly debt:<br><span class="textTLS">(eg. student loan, credit card payments)</span></td> 
+      <td width="176" align="right" class="headersmTLS" style="padding-top: 2px; padding-bottom: 2px;">$&nbsp;<input type="text" name="debt" size="10" onChange="process_input(this)" class="inputtextTLS"></td> 
+      </tr> 
+    <tr valign="middle"> 
+      <td class="headersmTLS" style="padding-top: 2px; padding-bottom: 2px;">Mortgage rate:</td> 
+      
+      <!-- Change quoted value string to change placeholder text --> 
+      
+      <td class="headersmTLS" style="padding-top: 2px; padding-bottom: 2px;" align="right"><input type="text" name="intrate" size="10" onChange="process_input(this)" class="inputtextTLS" value="5"></td> 
+      <td class="headersmTLS" style="padding-top: 2px; padding-bottom: 2px;">&nbsp;%</td> 
+      </tr> 
+    <tr valign="middle"> 
+      <td class="headersmTLS" style="padding-top: 2px; padding-bottom: 2px;">Annual property taxes:</td> 
+      <td class="headersmTLS" style="padding-top: 2px; padding-bottom: 2px;" align="right">$&nbsp;<input type="text" name="taxes" size="10" onChange="process_input(this)" class="inputtextTLS" value="3500"></td> 
+      </tr> 
+    <tr valign="middle"> 
+      <td class="headersmTLS" style="padding-top: 2px; padding-bottom: 7px;">Annual homeowner insurance:</td> 
+      <td class="headersmTLS" style="padding-top: 2px; padding-bottom: 7px;" align="right">$&nbsp;<input type="text" name="insurance" size="10" onChange="process_input(this)" class="inputtextTLS" value="481"></td> 
+      </tr> 
+    <tr valign="middle"> 
+      <td class="headersmTLS" style="padding-top: 7px; padding-bottom: 7px; border-top: 1px dotted #7B8598;" colspan="2" align="right"><a href="javascript:Calculate(document.frmHouseAfford);"><img src="http://i2.cdn.turner.com/money/.element/img/1.0/sections/tools/calculate.gif" alt="CALCULATE" width="80" height="23" border="0"></a></td> 
+      </tr> 
+    </table> 
+  <p>&nbsp;</p> 
+    
+  </p> 
+  
+  <!-- Results Table --> 
+  
+  <p>Results<br> 
+  </p> 
+  <table cellpadding="0" cellspacing="10" border="0" width="500" bgcolor="#FFFFFF" style="border: 1px solid #7B8598;"> 
+    <td width="500"><tr valign="middle"> 
+    <td width="14"></td> 
+    <tr valign="middle"> 
+      <td rowspan="-5" class="headersmTLS" style="padding-top: 2px; padding-bottom: 2px;">Maximum house price:</td> 
+      <td rowspan="-5" style="padding-top: 2px; padding-bottom: 2px; padding-left:3px;"><input type="text" name="price_max" size="10" class="inputtextTLS"></td> 
+      </tr> 
+    <tr valign="middle"> 
+      <td rowspan="-5" class="headersmTLS" style="padding-top: 2px; padding-bottom: 2px;">Loan amount:</td> 
+      <td rowspan="-5" style="padding-top: 2px; padding-bottom: 2px; padding-left:3px;"><input type="text" name="loan_amt_max" size="10" class="inputtextTLS"></td> 
+      </tr> 
+    <tr valign="middle"> 
+      <td rowspan="-5" class="headersmTLS" style="padding-top: 2px; padding-bottom: 2px;">Monthly mortgage payment:</td> 
+      <td rowspan="-5" style="padding-top: 2px; padding-bottom: 2px; padding-left:3px;"><input type="text" name="pmt_max" size="10" class="inputtextTLS"></td> 
+      </tr> 
+    <tr valign="middle"> 
+      <td rowspan="-5" class="headersmTLS" style="padding-top: 2px; padding-bottom: 2px;">Taxes/homeowner insurance:</td> 
+      <td rowspan="-5" style="padding-top: 2px; padding-bottom: 2px; padding-left:3px;"><input type="text" name="taxins_pmt_max" size="10" class="inputtextTLS"></td> 
+      </tr> 
+    <tr valign="middle"> 
+      <td rowspan="-5" class="headersmTLS" style="padding-top: 2px; padding-bottom: 7px;">Total monthly payment:</td> 
+      <td rowspan="-5" style="padding-top: 2px; padding-bottom: 7px; padding-left:3px;"><input type="text" name="total_pmt_max" size="10" class="inputtextTLS"></td> 
+      </tr> 
+    <tr valign="middle"> 
+      <td colspan="2" rowspan="-5" align="right" style="padding-top: 7px; padding-bottom: 7px; border-top: 1px dotted #7B8598;"><a href="javascript:clearFields(document.frmHouseAfford);"><img src="http://i2.cdn.turner.com/money/.element/img/1.0/sections/tools/button_try_again.gif" alt="TRY AGAIN" width="80" height="24" border="0"></a></td> 
+      </tr><input type="hidden" name="lmt_factor_max" size="10"><input type="hidden" name="lmt_factor_min" size="10"> 
+  </table> 
+ 
+  <div style="clear:both;"><br clear="all"></div> 
+  
+</body> 
+Source: modified version of <a href="http://cgi.money.cnn.com/tools/houseafford/houseafford.html" target="_blank">CNN personal finance calculator</a> 
+Credit: Redesigned by Thomas Bachant (UConn MAGIC) and Jack Dougherty (Trinity)
+</html> 
