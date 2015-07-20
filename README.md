@@ -24,3 +24,7 @@ and iframe code to insert
 
 ## Racial Change in the Hartford Region, 1900-2010
 http://jackdougherty.github.io/otl-magic/timeslider-racethematic.html
+
+Original caption: Drag the time slider (or click on a decade) to view changes in the racial population of the Hartford region over time. For more detail, click on any area to view the town name and tract-level census data.
+
+
