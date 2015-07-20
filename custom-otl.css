@@ -22,11 +22,6 @@
 	andrew.bacon@uconn.edu
 */
 
-/* JACK modified */
-.prepend-1 {
-  padding-left: none !important;
-}
-
 
 /* 4.1 Common - used in both the blue and grey/white headers.  */
 html body.uc-uconn-wrap #uc-head-wrap #uc-head h1 a {
