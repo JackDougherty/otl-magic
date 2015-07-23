@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/mashup_1_column_otl_slider.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>Racial Change in the Hartford Region, 1900-2010</title>
+
+<meta name="Description" content="University of Connecticut Libraries' Map And Geographic Information Center - MAGIC" />
+
+<meta name="Keywords" content="Map And Geographic Information Center,MAGIC,magic,map and geographic information center,connecticut map,map of connecticut,colonial maps,university of connecticut,uconn,connecticut,geography,geographic,geospatial,geospatial data,gis,maps,mapping,cartography,map librarianship,maps of connecticut,connecticut maps,connecticut gis,historical maps,historacal scans,historical map scans,uconn gis,aerial,aerial photographs, web 2.0." />
+
+<meta name="robots" content="index, follow" />
+
+<link rel="stylesheet" type="text/css" href="http://magic.lib.uconn.edu/otl/sliderStyle.css" />
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="http://magic.lib.uconn.edu/scripts/SpryAssets/SpryAccordion.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="http://magic.lib.uconn.edu/scripts/SpryAssets/SpryAccordion.css" media="screen"/> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.2r1/build/fonts/fonts-min.css" /> 
+<link rel="stylesheet" type="text/css" href="http://magic.lib.uconn.edu/otl/sliderStyle.css" />
+
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.2r1/build/yahoo-dom-event/yahoo-dom-event.js"></script> 
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.2r1/build/dragdrop/dragdrop-min.js"></script> 
+
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.2r1/build/slider/slider-min.js"></script> 
+
+<script type="text/javascript"> 
+
+//creating the variable for the geocoder
+
+
+// Globals
+var currentIndex = 0; // 0 will be the index of the layer displayed when the page loads initially
+var baseYear = 1900; //the initial year of the timeslider
+var incYear = 10; //the increment on the timeslider, in years, where 10 = one decade)
+var numYears = 12; //the number of year marks displayed on timeslider, where 10 = 100 years
+var baseURL = 'http://magic.lib.uconn.edu/test2/race_thematic/';  //the base URL where KML files are stored at MAGIC
+var kmlLayers = [];
+var mapA;
+var theLayer;
+var geocoder;
+
+	var first = getUrlParameters()["lat"];
+	var second = getUrlParameters()["long"];
+	var third = getUrlParameters()["layerA"];
+	var fourth = getUrlParameters()["zoom"];
+
+function initialize() {
+	geocoder = new google.maps.Geocoder();
+    var connecticut = new google.maps.LatLng(41.7910111, -72.6855556);    
+      
+    var mapA_setup = {
+      zoom: 10,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      MapTypeControl:true,
+      //mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU },
+      navigationControl: true,
+      navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL },
+      backgroundColor: 'White',
+      scrollwheel: true,
+      maxZoom: 17,
+      minZoom: 6,
+      scaleControl: true,
+      center: connecticut
+  }
+  
+    mapA = new google.maps.Map(document.getElementById("map_canvas"), mapA_setup);
+
+   // Initialize the layers (from Jean-Pierre Haeberly, Trinity College)
+	for (var i = 0; i < numYears; i++) {
+	   var year = baseYear + i*incYear;
+	   var s = baseURL + year + '.kmz';
+	   kmlLayers[i] = new google.maps.KmlLayer(s, { preserveViewport: true });
+	}
+	kmlLayers[currentIndex].setMap(mapA);
+	
+		if (third == "map") {
+		mapA.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+	}
+	else if (third == "satellite") {
+		mapA.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+	}
+	if (first && second) {
+		var hf = new google.maps.LatLng(parseFloat(first), parseFloat(second));
+		mapA.setCenter(hf);
+	}
+	if (fourth) {
+		mapA.setZoom(parseFloat(fourth));
+
+	}
+  }
+
+	function clearText() {
+	  var box = document.getElementById("address");
+	  if (box.value == 'Hartford, CT') {
+	  	box.value = '';
+	  }
+	  box.style.color="black";
+  }
+  
+  function codeAddressEnter() {
+	var keycode;
+	if (window.event) keycode = window.event.keyCode;
+	else return true;
+	if (keycode == 13) {
+	var southWest = new google.maps.LatLng(41.506, -73.10);
+	var northEast = new google.maps.LatLng(42.098, -72.362);
+	var bounds = new google.maps.LatLngBounds(southWest, northEast);
+    var address = document.getElementById("address").value;
+    if (geocoder) {
+        geocoder.geocode({ 'address': address }, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+   				if ((bounds.contains(results[0].geometry.location)) == true) {
+					mapA.setZoom(13);
+					mapA.setCenter(results[0].geometry.location);					
+					
+				}
+				else {
+					alert("Please enter an town in Hartford Area or include Connecticut in your search");
+				}
+                
+            } else {
+                alert("Geocode was not successful for the following reason: " + status);
+            }
+        });
+    }
+	}
+  }
+	
+	function codeAddress() {
+	var southWest = new google.maps.LatLng(41.506, -73.10);
+	var northEast = new google.maps.LatLng(42.098, -72.362);
+	var bounds = new google.maps.LatLngBounds(southWest, northEast);
+    var address = document.getElementById("address").value;
+    if (geocoder) {
+        geocoder.geocode({ 'address': address }, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+   				if ((bounds.contains(results[0].geometry.location)) == true) {
+					mapA.setZoom(13);
+                    mapA.setCenter(results[0].geometry.location);		
+					
+				}
+				else {
+					alert("Please enter an town in Hartford Area or include Connecticut in your search.");
+				}
+                
+            } else {
+                alert("Geocode was not successful for the following reason: " + status);
+            }
+        });
+    }	
+  }
+
+  function getUrlParameters()
+{
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
+(function() {
+    var Event = YAHOO.util.Event,
+        Dom   = YAHOO.util.Dom,
+        lang  = YAHOO.lang,
+        slider, 
+        bg="raceslider-bg", thumb="slider-thumb", 
+        valuearea="slider-value", textfield="slider-converted-value"
+ 
+    // The slider can move 0 pixels up
+    var topConstraint = 0;
+ 
+    // The slider can move 200 pixels down
+    var bottomConstraint = 625;
+ 
+    // Custom scale factor for converting the pixel offset into a real value
+    var scaleFactor = (1/55);
+ 
+    // The amount the slider moves when the value is changed with the arrow
+    // keys
+    var keyIncrement = 55;
+ 
+    var tickSize = 55;
+ 
+    Event.onDOMReady(function() {
+ 
+        slider = YAHOO.widget.Slider.getHorizSlider(bg, 
+                         thumb, topConstraint, bottomConstraint, 55);
+ 
+        // Sliders with ticks can be animated without YAHOO.util.Anim
+        slider.animate = true;
+ 
+        slider.getRealValue = function() {
+            return Math.round(this.getValue() * scaleFactor);
+        }
+ 
+        slider.subscribe("change", function(offsetFromStart) {
+ 
+            var valnode = Dom.get(valuearea);
+            var fld = Dom.get(textfield);
+ 
+            // Display the pixel value of the control 
+            // use the scale factor to convert the pixel offset into a real
+            // value
+			
+			
+         	 // displays KML layer according to time slider change event handler (from Jean-Pierre Haeberly, Trinity College)
+			var actualValue = slider.getRealValue();
+			if (actualValue != currentIndex) {
+			  kmlLayers[currentIndex].setMap(null);
+			  kmlLayers[actualValue].setMap(mapA);
+			  var year = baseYear + actualValue*incYear;
+			  valnode.innerHTML = year;
+			  currentIndex = actualValue;
+			}
+
+            // update the text box with the actual value
+            //fld.value = actualValue;
+			
+            // Update the title attribute on the background.  This helps assistive
+            // technology to communicate the state change
+            Dom.get(bg).title = "Drag timeslider or click on decade";
+        });
+
+ 
+ 		/*
+        slider.subscribe("slideStart", function() {
+                YAHOO.log("slideStart fired", "warn");
+            });
+ 
+        slider.subscribe("slideEnd", function() {
+                YAHOO.log("slideEnd fired", "warn");
+            });
+ 
+        // Listen for keystrokes on the form field that displays the
+        // control's value.  While not provided by default, having a
+        // form field with the slider is a good way to help keep your
+        // application accessible.
+		
+        // Use setValue to reset the value to white:
+        Event.on("putval", "click", function(e) {
+            slider.setValue(100, false); //false here means to animate if possible
+        });
+        
+        // Use the "get" method to get the current offset from the slider's start
+        // position in pixels.  By applying the scale factor, we can translate this
+        // into a "real value
+        Event.on("getval", "click", function(e) {
+            YAHOO.log("Current value: "   + slider.getValue() + "\n" + 
+                      "Converted value: " + slider.getRealValue(), "info", "example"); 
+        });
+		*/
+    });
+})();
+</script> 
+ 
+<!--begin custom header content for this example--> 
+
+
+<!-- InstanceEndEditable -->
+<!-- ****JACK substituted otl-custom.css in place of the UConn CSS here **** -->
+<link rel="stylesheet" type="text/css" href="otl-custom.css" media="screen"/> 
+<!--[if gte IE 6]><style type="text/css">@import "http://magic.lib.uconn.edu/css/global/4.0/head-foot/hf-ie.css";</style><![endif]-->
+<!--[if gte IE 6]><style type="text/css">@import "http://magic.lib.uconn.edu/css/global/4.0/middle/base/ie.css";</style><![endif]-->
+<!--[if gte IE 6]><style type="text/css">@import "http://magic.lib.uconn.edu/css/global/4.0/middle/uconn/ie.css";</style><![endif]-->
+<link rel="stylesheet" type="text/css" href="http://magic.lib.uconn.edu/css/global/4.0/head-foot/hf-print.css" media="print"/>
+<link rel="stylesheet" type="text/css" href="http://magic.lib.uconn.edu/css/global/4.0/middle/uconn/print.css" media="print"/>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+
+<script type="text/javascript" src="http://magic.lib.uconn.edu/css/global/4.0/middle/base/nav.js"></script>
+<script type="text/javascript" src="https://alert.uconn.edu/alert/alert.js"></script>
+
+<!-- **** UCONN TEMPLATE ENDS **** -->
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+</head>
+<body onload="initialize()"> 
+
+<!-- Jack reorganized divs   InstanceBeginEditable  -->
+<body class="yui-skin-sam">
+<div id="main" class="container"> 
+  <div id="content" class="append-1 prepend-1 span-22" > 
+    <div id="entire_mashup">
+      <div id="race_mashup">
+        <div id="race_overview">Click Map to Display Town & Data<br /><img src="http://magic.lib.uconn.edu/otl/animationImages/race_towns_data_overview.png"></div>
+        <div id="race_search">Search Hartford area
+    	    <input id="address" type="text" value="Hartford, CT" title="Enter a CT town here" size="15" style="color:#666666" onmousedown="clearText()" onKeyPress="return codeAddressEnter()"/> 
+    	    <input type="button" value="Go" onclick="codeAddress()"/>
+        </div>
+          <div id="race_legend">% White Population <img src="http://magic.lib.uconn.edu/otl/animationImages/race_legend.png"></div>
+          <div id="map_canvas" style="position:absolute; width:650px; height:490px; "></div>    </form>
+          <img src="http://magic.lib.uconn.edu/otl/animationImages/bg_map_slider.png">
+          <h4>Currently Viewing: <strong><span id="slider-value">1900</span></strong></h4> 
+                <div id="raceslider-bg" class="yui-h-slider" tabindex="-1" title="Slider"> 
+                  <div id="slider-thumb" class="yui-slider-thumb"><img src="thumb-n.gif"></div> 
+		</div> 
+      </div>
+    </div>
+  </div>
+</div>
+<!--foot-wrap-->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-4813179-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+
+</body>
+<!-- InstanceEnd --></html>
