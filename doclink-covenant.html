@@ -11,36 +11,12 @@
  //setting up the single map
  var mapA;
  
- //creating the variable for the geocoder
- var geocoder;
-
- //setting up the variables for the different map type to appear in the dropdown above each map.  There needs to a new var for each new wms layer
-
- var wmsMapType;
- var wmsMapTypeB;
- var wmsMapTypeC;
- var wmsMapTypeD;
-
- 
  //setting up the variables for the different kml layers to be included
  var covenants_layer;
-// var high_1940_layer;
-// var hillside_1940_layer;
-// var dryads_1940_layer;
-// var BelCrest_1940_layer;
-//var unnamed_1940_layer;
-// var covenants_centroid_layer;
 
-
-
- 
- 
  function initialize() {
-    geocoder = new google.maps.Geocoder();
     var westhartford = new google.maps.LatLng(41.765, -72.745);
 
-    
-      
     var mapA_setup = {
       zoom: 12,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -56,32 +32,11 @@
       center: westhartford
   }
 
-  
-  
- 
     mapA = new google.maps.Map(document.getElementById("mapA"), mapA_setup);
 
 
     //set up the kml layers to toggle.  
 	 covenants_layer = new google.maps.KmlLayer('http://magic.lib.uconn.edu/test2/restrictive_covenants_with_towns_1.kmz', { preserveViewport: true });
-
-
-//    high_1940_layer = new google.maps.KmlLayer('http://magic.lib.uconn.edu/magic_2/vector/37840/155/poph_high_ledge_37840_155_1940_svar_whlr_3_kml.kmz', { preserveViewport: true });
-	//high_1940_layer.setMap(mapA);
-	 
- //   hillside_1940_layer = new google.maps.KmlLayer('http://magic.lib.uconn.edu/magic_2/vector/37840/155/poph_hillside_homes_37840_155_1940_svar_whlr_2_kml.kmz', { preserveViewport: true });
-	
-//	 dryads_1940_layer = new google.maps.KmlLayer('http://magic.lib.uconn.edu/magic_2/vector/37840/155/poph_dryads_grove_37840_155_1940_svar_whlr_2_kml.kmz', { preserveViewport: true });
-	
-//	 BelCrest_1940_layer = new google.maps.KmlLayer('http://magic.lib.uconn.edu/magic_2/vector/37840/155/poph_BelCrest_37840_155_1940_svar_whlr_2_kml.kmz', { preserveViewport: true });
-
-
-//	 unnamed_1940_layer = new google.maps.KmlLayer('http://magic.lib.uconn.edu/magic_2/vector/37840/155/poph_unnamed_asylum_ave_37840_155_1940_svar_whlr_2_kml.kmz', { preserveViewport: true });
-
-//	 covenants_centroid_layer = new google.maps.KmlLayer('http://magic.lib.uconn.edu/test/restrictive_covenants_centroid.kmz', { preserveViewport: true });
-	 
-
-	
 
 
 //Creating the WMS layer options.  This code just creates the Google imagemaptype options for each wms layer.  In the options the function that calls the individual wms layer is set 
@@ -128,12 +83,6 @@
         tileSize: new google.maps.Size(256, 256)
     };
 
-
-  
-
-
-
-
 //Creating the object to create the ImageMapType that will call the WMS Layer Options. 
     wmsMapType = new google.maps.ImageMapType(wmsOptions_1934_Aerials);
 	wmsMapTypeB = new google.maps.ImageMapType(wmsOptions_1991_Aerials);
@@ -166,27 +115,8 @@
     });
 
 
-     //Where the initial map type is set.  This can be adjusted as necessary.  The map name in ' ' indicates the default map viewed when the user 
-    //visits the page
-    //mapA.setMapTypeId('1934 Aerials');
-
     //Setting up the objects that can be toggled. Users can add additional KML files which will be viewable on the map.
 	toggleLayer(covenants_layer);  
-//	toggleLayer(high_1940_layer);
-//	toggleLayer(hillside_1940_layer);
-//	toggleLayer(dryads_1940_layer);
-//	toggleLayer(BelCrest_1940_layer);
-//	toggleLayer(unnamed_1940_layer);
-//	toggleLayer(covenants_centroid_layer);
-  
-    
-    //create the event listener to track the actions of one map 
-    
-    google.maps.event.addListener(mapA, 'drag', MoveA);
-    google.maps.event.addListener(mapA, 'zoom_changed', zoomA);
-
-
-    
     
     
   }
@@ -276,101 +206,7 @@
 
 
 
- // ====== Handle the Map movements ======
-      
-      // Variables that log whether we are currently causing the maps to be moved
-      var mapA_moving = 0;
-      
 
-
-      
-   
-       
-  //==========Sync Map Zoom ===========
-  // Variables that log whether we are currently causing the maps to be zoomed
-        var mapA_zoom = 0;
-
- 
-
-      
-
-     
-  
-  
-	function clearText() {
-	  var box = document.getElementById("address");
-	  if (box.value == '750 Capitol Ave Hartford, CT') {
-	  	box.value = '';
-	  }
-	  box.style.color="black";
-  }
-
-       
-//Establish the Geocoder function.  The user can change the zoom level of where the geocoder will go by adjusting the value for .setZoom.  The 
-//function will return a location on both maps.
- 
-  function codeAddressEnter() {
-	var keycode;
-	if (window.event) keycode = window.event.keyCode;
-	else return true;
-	if (keycode == 13) {
-	var southWest = new google.maps.LatLng(40.982, -73.739);
-	var northEast = new google.maps.LatLng(42.061, -71.778);
-	var bounds = new google.maps.LatLngBounds(southWest, northEast);
-    var address = document.getElementById("address").value;
-    if (geocoder) {
-        geocoder.geocode({ 'address': address }, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-   				if ((bounds.contains(results[0].geometry.location)) == true) {
-					mapA.setZoom(14);
-					mapA.setCenter(results[0].geometry.location);				
-					var marker = new google.maps.Marker({
-                	    map: mapA,
-                	    position: results[0].geometry.location
-                	});
-
-				}
-				else {
-					alert("Please enter an address in Connecticut, or be more specific in your search.");
-				}
-                
-            } else {
-                alert("Geocode was not successful for the following reason: " + status);
-            }
-        });
-    }
-	}
-  }
-	
-	
-	
-	function codeAddress() {
-	var southWest = new google.maps.LatLng(40.982, -73.739);
-	var northEast = new google.maps.LatLng(42.061, -71.778);
-	var bounds = new google.maps.LatLngBounds(southWest, northEast);
-    var address = document.getElementById("address").value;
-    if (geocoder) {
-        geocoder.geocode({ 'address': address }, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-   				if ((bounds.contains(results[0].geometry.location)) == true) {
-					mapA.setZoom(14);
-					mapA.setCenter(results[0].geometry.location);					
-					var marker = new google.maps.Marker({
-                	    map: mapA,
-                	    position: results[0].geometry.location
-                	});
-
-				}
-				else {
-					alert("Please enter a specific Connecticut address such as: 100 Main St Hartford, CT");
-				}
-                
-            } else {
-                alert("Geocode was not successful for the following reason: " + status);
-            }
-        });
-    }	
-  }
  
   //Toggle layers function.  Calls the individual layer as defined earlier.  This function will work for any number of defined kml layers
 
