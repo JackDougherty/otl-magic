@@ -35,14 +35,10 @@ iframe code to insert
 
 Original caption: Drag the time slider (or click on a decade) to view changes in the racial population of the Hartford region over time. For more detail, click on any area to view the town name and tract-level census data.
 
-## Home Value. . .
+## Home Value Index in the Hartford Region, 1910-2010*
 http://jackdougherty.github.io/otl-magic/timeslider-homevalue.html
 
 Original caption: Drag the time slider (or click on a decade) to view the relative value of a single-family home in the Hartford region. Click on any town to view its name. Notes: Average Dwelling Value, indexed to Hartford region mean, where darker green means higher dollar value. 1910-1980 based on CT Tax Commissioner assessed value of average dwelling for Hartford County, while 1990-2000 (actually 1991, 2002) based on CRCOG single-family home sales for Hartford region. 
-
-### TO DO for both timesliders
-- Replace depreciated YUI slider (http://yui.github.io/yui2/docs/yui_2.9.0_full/slider/index.html) with jQuery slider (https://jqueryui.com/slider/#steps)
-- increase font size for "Currently Viewing" (year) in timeslider
 
 ## School District Boundary Comparison Viewer
 http://jackdougherty.github.io/otl-magic/dualzoom-schooldistricts.html
@@ -59,3 +55,6 @@ Copy the dynamic web link below to share the map currently shown above:
 Read more and comment at On The Line. 
 
 YouTube demo: https://youtu.be/VsyZyHo9j6w
+
+### TO DO for both timesliders
+- Replace depreciated YUI slider (http://yui.github.io/yui2/docs/yui_2.9.0_full/slider/index.html) with jQuery slider (https://jqueryui.com/slider/#steps)
