@@ -3,13 +3,13 @@ On The Line maps and tools created with [MAGIC UConn Libraries](http://magic.lib
 
 ## Notes
 - **All underscores** (_) in the original pathnames have been changed to hyphens (-) to be consistent with new OTL digital material
-- **Custom-otl.css** created to address timeslider css issues
+- **otl-custom.css** created to address timeslider css issues
 - **thumb-n.gif** uploaded to address depreciation issue in timeslider
 
 ## Race Restrictive Covenants in Property Deeds, Hartford-area, 1940s
 http://jackdougherty.github.io/otl-magic/doclink-covenant.html
 
-and iframe code to insert
+iframe code to insert
 ```
 [iframe src="//jackdougherty.github.io/otl-magic/doclink-covenant.html" width="600" height="520"]
 ```
@@ -20,13 +20,18 @@ Original caption: Click a colored rectangle to view racial restrictions, typical
 ## HOLC Redlining Map, 1937
 http://jackdougherty.github.io/otl-magic/doclink-holc.html
 
-and iframe code to insert
+iframe code to insert
 ```
-[iframe src="//jackdougherty.github.io/otl-magic/doclink-holc.html" width="600" height="570"]
+[iframe src="//jackdougherty.github.io/otl-magic/doclink-holc.html" width="675" height="720"]
 ```
 
 ## Racial Change in the Hartford Region, 1900-2010
 http://jackdougherty.github.io/otl-magic/timeslider-racethematic.html
+
+iframe code to insert
+```
+[iframe src="//jackdougherty.github.io/otl-magic/timeslider-racethematic.html" width="675" height="720"]
+```
 
 Original caption: Drag the time slider (or click on a decade) to view changes in the racial population of the Hartford region over time. For more detail, click on any area to view the town name and tract-level census data.
 
