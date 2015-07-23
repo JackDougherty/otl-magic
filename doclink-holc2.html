@@ -669,17 +669,22 @@
 <script type="text/javascript" src="https://alert.uconn.edu/alert/alert.js"></script>
 
 
+
+
 <body onload="initialize()">
   <div id="main" class="container"> 
     <div id="content" class="append-1 prepend-1 span-22">
       <div id="entire_mashup">
 	<div id="holc_mashup">
           <div id="mapA" style="position:absolute; left:0px; width:428px; height:500px; "></div> 
-          <div id="mapB" style="position:absolute; left:430px; width:428px; height:500px; "></div> 
+          <div id="mapB" style="position:absolute; left:430px; width:428px; height:500px; ">
+          	<!-- Jack added legend for mapB -->
+          	<div id-"mapBlegend" style="position: absolute; bottom: 25px; right: 5px; padding: 5px; color: #fff; ">
+          		<img src="http://magic.lib.uconn.edu/images/holc_legend_inset.png" width="129" height="111" alt="HOLC_legend" class="floatLeft" style="display:inline"/>
+          	</div>
+          </div> 
     	</div>
-    	<div id="holc_mashup_caption">
-    	  <img src="http://magic.lib.uconn.edu/images/holc_legend_inset.png" width="129" height="111" alt="HOLC_legend" class="floatLeft" style="display:inline"/>
-	  <div id="mashup_search_layers">
+	<div id="mashup_search_layers">
             <div id="mashup_search">Use the search box below to locate an address in the Hartford area.
     	      <input id="address" type="text" value="300 Capitol Ave Hartford, CT" title="Enter an address here" size="55" style="color:#666666" onmousedown="clearText()" onKeyPress="return codeAddressEnter()"/> 
     	      <input type="button" value="Find Address" onclick="codeAddress()"/>
@@ -690,8 +695,7 @@
     	      HOLC Areas, 1937
               <!-- <input name="box" type="checkbox" checked="true" id="towns" onclick="toggleImage()" />CT Towns-->
              </div>
-	   </div>
-	</div>
+	 </div>
       </div>
     </div>
   </div>
