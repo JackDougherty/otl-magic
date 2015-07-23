@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>Neighborhood Change in Connecticut, 1934 to Present</title>
+<title>Zoning Maps of West Hartford, Connecticut, 1924 to present</title>
 
 <meta name="Description" content="University of Connecticut Libraries' Map And Geographic Information Center - MAGIC" />
 
@@ -20,14 +20,6 @@
     var mapA;
     var mapB;
 
-    // this variable will collect the html which will eventually be placed in the side_bar 
-    //var side_bar_html = "";
-
-    // arrays to hold copies of the markers and html used by the side_bar 
-
-    //var gmarkers = [];
-
-
     //creating the variable for the geocoder
     var geocoder;
 
@@ -39,11 +31,10 @@
     var wmsMapTypeD;
 	var wmsMapTypeE;
 	var wmsMapTypeF;
-	var wmsMapTypeG;
 
     //setting up the variables for the different kml layers to be included.  If the user adds a new KML layer a new var for that layer must be included
     var town_layer;
-	var town_layer2;
+	var zoning_layer;
 	
 	var first = getUrlParameters()["lat"];
 	var second = getUrlParameters()["long"];
@@ -54,7 +45,7 @@
     function initialize() {
         geocoder = new google.maps.Geocoder();
         //Set the center of the map
-        var connecticut = new google.maps.LatLng(41.762605, -72.679539);
+        var westhartford = new google.maps.LatLng(41.765, -72.745);
 
         var mapA_setup = {
             zoom: 15,
@@ -68,12 +59,12 @@
             maxZoom: 17,
             minZoom: 6,
             scaleControl: true,
-            center: connecticut
+      	    center: westhartford
         }
 
         var mapB_setup = {
             zoom: 15,
-            mapTypeId: google.maps.MapTypeId.HYBRID,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
             MapTypeControl: true,
             mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
             navigationControl: true,
@@ -83,156 +74,119 @@
             maxZoom: 17,
             minZoom: 6,
             scaleControl: true,
-            center: connecticut
+            center: westhartford
         }
 
         mapA = new google.maps.Map(document.getElementById("mapA"), mapA_setup);
         mapB = new google.maps.Map(document.getElementById("mapB"), mapB_setup);
 		
 		
-//
-//        google.maps.event.addListener(mapA_setup, 'click', function() {
-//            infowindow.close();
-//        });
-
-        // Add markers to the map for specific locations.  For each location the user wishes to add they need to ad a point and then a marker.  If the user would like the same point
-        //to be aviable on each map they would first declare a point then then a marker for each map pointing to a different createMaker function.  In the marker declaration
-        //the user can add elements to the pop-up window, such as links, embedded images and much more.  
-
-        //var point = new google.maps.LatLng(41.782937, -72.746605);
-        //var marker = createMarker(point, "<p>See influence of 1950s suburban housing and commercial development (such as the Bishop's Corner area in West Hartford)</p>", "Bishop's Corner area in West Hartford");
-        //var marker = createMarkerB(point, "", "Bishop's Corner area in West Hartford");
-
-        //var point = new google.maps.LatLng(41.761065, -72.702246);
-        //var marker = createMarker(point, "<p>See influence of 1960s interstate highway development on urban neighborhoods (such as the I-84 exchange in Hartford's Parkville area)</p>", "I-84 exchange in Hartford's Parkville area");
-
-        //var marker = createMarkerB(point, "", "I-84 exchange in Hartford's Parkville area");
-
-
-        // Put the assembled side_bar_html contents into the side_bar div
-        //document.getElementById("side_bar").innerHTML = side_bar_html;
-
-
-
         //Set-up the kml layers to toggle.  The address to the KML layer should include the whole web address.  KML and KMZ files in a WGS84 projection will work.
         town_layer = new google.maps.KmlLayer('http://magic.lib.uconn.edu/otl/ct_town_boundaries_1984_0001.kmz', { preserveViewport: true });
 		town_layer.setMap(mapA);
 		
-        town_layer2 = new google.maps.KmlLayer('http://magic.lib.uconn.edu/otl/ct_town_boundaries_1984_0001.kmz', { preserveViewport: true });
+       // town_layer2 = new google.maps.KmlLayer('http://magic.lib.uconn.edu/otl/ct_town_boundaries_1984_0001.kmz', { preserveViewport: true });
 
-		town_layer2.setMap(mapB);
+		//town_layer2.setMap(mapB);
 		
+		
+        zoning_layer = new google.maps.KmlLayer('http://magic.lib.uconn.edu/test/Zoning_Test3.kmz', { preserveViewport: true });
 
-
+	
         //Creating the WMS layer options.  This code creates the Google imagemaptype options for each wms layer.  In the options the function that calls the individual 
         //wms layer is set 
 
- 		var wmsOptions = {
-            alt: "2010",
+        var wmsOptions = {
+            alt: "1924",
             getTileUrl: WMSGetTileUrl,
             isPng: false,
-            maxZoom: 19,
-            minZoom: 1,
-            name: "2010",
+            maxZoom: 17,
+            minZoom: 6,
+            name: "1924",
             tileSize: new google.maps.Size(256, 256),
-            credit: 'Image Credit: CT DEP'
+            credit: 'Image Credit: Town of West Hartford'
         };
 
-  		var wmsOptionsB = {
-            alt: "2009",
+
+        var wmsOptions_1930 = {
+            alt: "1930",
             getTileUrl: WMSGetTileUrl2,
             isPng: false,
-            maxZoom: 19,
-            minZoom: 1,
-            name: "2009",
+            maxZoom: 17,
+            minZoom: 6,
+            name: "1930",
             tileSize: new google.maps.Size(256, 256),
-            credit: 'Image Credit: CT DEP'
+            credit: 'Image Credit: Town of West Hartford'
         };
 
-       var wmsOptionsC = {
-            alt: "2006",
+
+        var wmsOptions_1951 = {
+            alt: "1951",
             getTileUrl: WMSGetTileUrl3,
             isPng: false,
-            maxZoom: 18,
-            minZoom: 1,
-            name: "2006",
-            tileSize: new google.maps.Size(256, 256),
-            credit: 'Image Credit: CT DEP'
-        };
-
-        var wmsOptionsD = {
-            alt: "2004",
-            getTileUrl: WMSGetTileUrl4,
-            isPng: false,
-            maxZoom: 18,
-            minZoom: 1,
-            name: "2004",
-            tileSize: new google.maps.Size(256, 256),
-            credit: 'Image Credit: CT DEP'
-        };
-		
-        var wmsOptionsE = {
-            alt: "1990",
-            getTileUrl: WMSGetTileUrl5,
-            isPng: false,
-            maxZoom: 18,
-            minZoom: 1,
-            name: "1990",
-            tileSize: new google.maps.Size(256, 256),
-			credit: 'Image Credit: CT DEP'
-        };   
-
-		var wmsOptionsF = {
-            alt: "1951",
-            getTileUrl: WMSGetTileUrl6,
-            isPng: false,
-            maxZoom: 18,
-            minZoom: 1,
+            maxZoom: 17,
+            minZoom: 6,
             name: "1951",
             tileSize: new google.maps.Size(256, 256),
-			credit: 'Image Credit: MAGIC'
+            credit: 'Image Credit: Town of West Hartford'
         };
 
-		var wmsOptionsG = {
-            alt: "1934",
-            getTileUrl: WMSGetTileUrl7,
+        var wmsOptions_1960 = {
+            alt: "1960",
+            getTileUrl: WMSGetTileUrl4,
             isPng: false,
-            maxZoom: 18,
-            minZoom: 1,
-            name: "1934",
+            maxZoom: 17,
+            minZoom: 6,
+            name: "1960",
             tileSize: new google.maps.Size(256, 256),
-			credit: 'Image Credit: CT State Library, MAGIC'
+            credit: 'Image Credit: Town of West Hartford'
         };
 
+		var wmsOptions_1970 = {
+            alt: "1970",
+            getTileUrl: WMSGetTileUrl5,
+            isPng: false,
+            maxZoom: 17,
+            minZoom: 6,
+            name: "1970",
+            tileSize: new google.maps.Size(256, 256),
+            credit: 'Image Credit: Town of West Hartford'
+        };
+
+		var wmsOptions_1988 = {
+            alt: "1988",
+            getTileUrl: WMSGetTileUrl6,
+            isPng: false,
+            maxZoom: 17,
+            minZoom: 6,
+            name: "1988",
+            tileSize: new google.maps.Size(256, 256),
+            credit: 'Image Credit: Town of West Hartford'
+        };
 
 
         //Creating the object to create the ImageMapType that will call the WMS Layer Options. 
         wmsMapType = new google.maps.ImageMapType(wmsOptions);
-        wmsMapTypeB = new google.maps.ImageMapType(wmsOptionsB);
-        wmsMapTypeC = new google.maps.ImageMapType(wmsOptionsC);
-        wmsMapTypeD = new google.maps.ImageMapType(wmsOptionsD);
-		wmsMapTypeE = new google.maps.ImageMapType(wmsOptionsE);
-		wmsMapTypeF = new google.maps.ImageMapType(wmsOptionsF);
-		wmsMapTypeG = new google.maps.ImageMapType(wmsOptionsG);
-
+	    wmsMapTypeB = new google.maps.ImageMapType(wmsOptions_1930);
+        wmsMapTypeC = new google.maps.ImageMapType(wmsOptions_1951);
+        wmsMapTypeD = new google.maps.ImageMapType(wmsOptions_1960);
+		wmsMapTypeE = new google.maps.ImageMapType(wmsOptions_1970);
+		wmsMapTypeF = new google.maps.ImageMapType(wmsOptions_1988);
+		
         //Layers to appear on Map B (the right hand side map).  The first string will give the map the map a name in the drop down and the second object calls the map type
-		mapA.mapTypes.set('2010', wmsMapType);
-		mapB.mapTypes.set('2009', wmsMapTypeB);
-        mapA.mapTypes.set('2006', wmsMapTypeC); 
-		mapA.mapTypes.set('2004', wmsMapTypeD);
-		mapA.mapTypes.set('1990', wmsMapTypeE);
-		mapA.mapTypes.set('1951', wmsMapTypeF);
-		mapA.mapTypes.set('1934', wmsMapTypeG);
-
+        mapA.mapTypes.set('1924', wmsMapType);
+        mapA.mapTypes.set('1930', wmsMapTypeB);
+		mapA.mapTypes.set('1951', wmsMapTypeC);
+        mapA.mapTypes.set('1960', wmsMapTypeD);
+        mapA.mapTypes.set('1970', wmsMapTypeE);
+        mapA.mapTypes.set('1988', wmsMapTypeF);
         //Layers to appear on Map B (the right hand side map)
-		mapB.mapTypes.set('2010', wmsMapType);
-		mapB.mapTypes.set('2009', wmsMapTypeB);
-		mapB.mapTypes.set('2006', wmsMapTypeC); 
-		mapB.mapTypes.set('2004', wmsMapTypeD);
-		mapB.mapTypes.set('1990', wmsMapTypeE);
-		mapB.mapTypes.set('1951', wmsMapTypeF);
-		mapB.mapTypes.set('1934', wmsMapTypeG);
-
+        mapB.mapTypes.set('1924', wmsMapType);
+        mapB.mapTypes.set('1930', wmsMapTypeB);
+		mapB.mapTypes.set('1951', wmsMapTypeC);
+        mapB.mapTypes.set('1960', wmsMapTypeD);
+        mapB.mapTypes.set('1970', wmsMapTypeE);
+        mapB.mapTypes.set('1988', wmsMapTypeF);
 
 
 
@@ -241,13 +195,12 @@
         mapA.setOptions({
             mapTypeControlOptions: {
                 mapTypeIds: [
-		  //'2010',
-		  '2009',
-		  '2006',
-		  '2004',
-		  '1990',
-		 // '1951',
-		  '1934',
+		  '1924',
+		  '1930',
+		  '1951',
+		  '1960',
+		  '1970',
+		  '1988',
 		  google.maps.MapTypeId.ROADMAP
 		],
                 style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
@@ -259,13 +212,12 @@
         mapB.setOptions({
             mapTypeControlOptions: {
                 mapTypeIds: [
-		  //'2010',
-		  '2009',
-		  '2006',
-		  '2004',
-		  '1990',
-		 //'1951',
-		  '1934',
+		  '1924',
+		  '1930',
+		  '1951',
+		  '1960',
+		  '1970',
+		  '1988',
 		  google.maps.MapTypeId.ROADMAP,
 		  google.maps.MapTypeId.TERRAIN,
 		  google.maps.MapTypeId.SATELLITE,
@@ -278,8 +230,8 @@
 
     //Where the initial map type is set.  This can be adjusted as necessary.  The map name in ' ' indicates the default map viewed when the user 
     //visits the page
-    mapA.setMapTypeId('1934');
-    //mapB.setMapTypeId('2010');
+    mapA.setMapTypeId('1924');
+    //mapB.setMapTypeId('2008 Aerials');
 	
 	//Create the event listener to track the actions of one map and mimic on the other.  This shouldn't be altered unless you are adding a third map, and then you need
     //to do some more work
@@ -289,88 +241,54 @@
     google.maps.event.addListener(mapA, 'zoom_changed', zoomA);
     google.maps.event.addListener(mapB, 'zoom_changed', zoomB);
 
-    //Event types can be found here...
-
-    //http://code.google.com/apis/maps/documentation/javascript/reference.html
-
-    google.maps.event.addListener(mapA, 'mouseup', updateLocationText);
-
-    google.maps.event.addListener(mapB, 'mouseup', updateLocationText);
-
-    google.maps.event.addListener(mapA, 'zoom_changed', updateLocationText);
-
-    google.maps.event.addListener(mapB, 'zoom_changed', updateLocationText);  
-
-    google.maps.event.addListener(mapA, 'maptypeid_changed', updateLocationText);
-
-    google.maps.event.addListener(mapB, 'maptypeid_changed', updateLocationText);    
-	
-	//Setting up the KML objects that can be toggled.  If the user would like to add a kml to an individual map they need to define the 
+    //Setting up the KML objects that can be toggled.  If the user would like to add a kml to an individual map they need to define the 
     //layer for that map using the appropriate function.  toggleLayer will work with Mapa and toggleLayer2 adds layers to mapB
     toggleLayer(town_layer);
-    toggleLayer2(town_layer2);
-	if (third == "2010") {
-		mapA.setMapTypeId('2010');
+	toggleLayer2(zoning_layer);	
+	if (third == "1924") {
+		mapA.setMapTypeId('1924');
 	}
-	else if (third == "2009") {
-		mapA.setMapTypeId('2009'); 
-	}
-	else if (third == "2006") {
-		mapA.setMapTypeId('2006'); 
-	}
-	else if (third == "2004") {
-		mapA.setMapTypeId('2004'); 
-	}
-	else if (third == "1990") {
-		mapA.setMapTypeId('1990');
+	else if (third == "1930") {
+		mapA.setMapTypeId('1930'); 
 	}
 	else if (third == "1951") {
 		mapA.setMapTypeId('1951');
 	}
-	else if (third == "1934") {
-		mapA.setMapTypeId('1934');
+	else if (third == "1960") {
+		mapA.setMapTypeId('1960');
+	}
+	else if (third == "1970") {
+		mapA.setMapTypeId('1970');
+	}
+	else if (third == "1988") {
+		mapA.setMapTypeId('1988');
 	}
 	else if (third == "map") {
 		mapA.setMapTypeId(google.maps.MapTypeId.ROADMAP);
 	}
-	else if (third == "terrain") {
-		mapA.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-	}
-	else if (third == "hybrid") {
-		mapA.setMapTypeId(google.maps.MapTypeId.HYBRID);
-	}
 	else if (third == "satellite") {
 		mapA.setMapTypeId(google.maps.MapTypeId.SATELLITE);
 	}
-	if (fourth == "2010") {
-		mapB.setMapTypeId('2010');
+	if (fourth == "1924") {
+		mapB.setMapTypeId('1924');
 	}
-	else if (fourth == "2009") {
-		mapB.setMapTypeId('2009'); 
-	}
-	else if (fourth == "2006") {
-		mapB.setMapTypeId('2006'); 
-	}
-	else if (fourth == "2004") {
-		mapB.setMapTypeId('2004'); 
-	}
-	else if (fourth == "1990") {
-		mapB.setMapTypeId('1990');
+	else if (fourth == "1930") {
+		mapB.setMapTypeId('1930'); 
 	}
 	else if (fourth == "1951") {
 		mapB.setMapTypeId('1951');
 	}
-	else if (fourth == "1934") {
-		mapB.setMapTypeId('1934');
+	else if (fourth == "1960") {
+		mapB.setMapTypeId('1960');
+	}
+	else if (fourth == "1970") {
+		mapB.setMapTypeId('1970');
+	}
+	else if (fourth == "1988") {
+		mapB.setMapTypeId('1988');
 	}
 	else if (fourth == "map") {
 		mapB.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-	}
-	else if (fourth == "terrain") {
-		mapB.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-	}
-	else if (fourth == "hybrid") {
-		mapB.setMapTypeId(google.maps.MapTypeId.HYBRID);
 	}
 	else if (fourth == "satellite") {
 		mapB.setMapTypeId(google.maps.MapTypeId.SATELLITE);
@@ -384,19 +302,10 @@
 		mapA.setZoom(parseFloat(fifth));
 		mapB.setZoom(parseFloat(fifth));
 	}
-    updateLocationText();
-
 }
 
 
 
-
-  //Where the info window for the selected cities is declared.  To adjust the size change the size elements.  The first value is the width and the second is the hieght.
-
-  //var infowindow = new google.maps.InfoWindow(
- // {
- //     size: new google.maps.Size(150, 150)
- // });
 
   //The code that reads in the WMS file.  To change the WMS layer the user would update the layers line.  As this is constructed now you need to have this code 
   //for each WMS layer.
@@ -406,122 +315,11 @@
   //Check with your Web Map Server to see what are the required components of the address.  You may need to add a couple of segements.  For example, the ArcServer WMS requires
   //a CRS value which is tacked on to the end of the url.  For an example visit http://www.gisdoctor.com/v3/arcserver_wms.html 
  
+
+
+
+
   function WMSGetTileUrl(tile, zoom) {
-      var projection = window.mapA.getProjection();
-      var zpow = Math.pow(2, zoom);
-      var ul = new google.maps.Point(tile.x * 256.0 / zpow, (tile.y + 1) * 256.0 / zpow);
-      var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
-      var ulw = projection.fromPointToLatLng(ul);
-      var lrw = projection.fromPointToLatLng(lr);
-      //The user will enter the address to the public WMS layer here.  The data must be in WGS84
-      var baseURL = "http://www.ctecoapp3.uconn.edu/arcgis/services/images/ortho_2010_Color_NAIP/ImageServer/WMSServer?&REQUEST=GetMap&SERVICE=WMS&VERSION=1.3&LAYERS="; //begining of the WMS URL ending with a "?" or a "&".
-      var format = "image/jpeg"; //type of image returned  or image/jpeg
-      //The layer ID.  Can be found when using the layers properties tool in ArcMap
-      var layers = "0"; 
-      var srs = "EPSG:4326"; //projection to display. This is the projection of google map. Don't change unless you know what you are doing.
-      var bbox = ulw.lat() + "," + ulw.lng() + "," + lrw.lat() + "," + lrw.lng();
-      //Add the components of the URL together
-      var url = baseURL + layers + "&Styles=default" + "&SRS=" + srs + "&BBOX=" + bbox + "&width=256" + "&height=256" + "&format=" + format + "&BGCOLOR=0xFFFFFF&TRANSPARENT=true" + "&reaspect=false" + "&CRS=EPSG:4326";
-      return url;
-  }
-
-   function WMSGetTileUrl2(tile, zoom) {
-      var projection = window.mapA.getProjection();
-      var zpow = Math.pow(2, zoom);
-      var ul = new google.maps.Point(tile.x * 256.0 / zpow, (tile.y + 1) * 256.0 / zpow);
-      var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
-      var ulw = projection.fromPointToLatLng(ul);
-      var lrw = projection.fromPointToLatLng(lr);
-      //The user will enter the address to the public WMS layer here.  The data must be in WGS84
-      var baseURL = "http://www.ctecoapp3.uconn.edu/arcgis/services/images/ortho_2009_Color_CRCOG/ImageServer/WMSServer?&REQUEST=GetMap&SERVICE=WMS&VERSION=1.3&LAYERS="; //begining of the WMS URL ending with a "?" or a "&".
-      var format = "image/jpeg"; //type of image returned  or image/jpeg
-      //The layer ID.  Can be found when using the layers properties tool in ArcMap
-      var layers = "0"; 
-      var srs = "EPSG:4326"; //projection to display. This is the projection of google map. Don't change unless you know what you are doing.
-      var bbox = ulw.lat() + "," + ulw.lng() + "," + lrw.lat() + "," + lrw.lng();
-      //Add the components of the URL together
-      var url = baseURL + layers + "&Styles=default" + "&SRS=" + srs + "&BBOX=" + bbox + "&width=256" + "&height=256" + "&format=" + format + "&BGCOLOR=0xFFFFFF&TRANSPARENT=true" + "&reaspect=false" + "&CRS=EPSG:4326";
-      return url;
-  }
-
-  function WMSGetTileUrl3(tile, zoom) {
-      var projection = window.mapA.getProjection();
-      var zpow = Math.pow(2, zoom);
-      var ul = new google.maps.Point(tile.x * 256.0 / zpow, (tile.y + 1) * 256.0 / zpow);
-      var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
-      var ulw = projection.fromPointToLatLng(ul);
-      var lrw = projection.fromPointToLatLng(lr);
-      //The user will enter the address to the public WMS layer here.  The data must be in WGS84
-      var baseURL = "http://www.ctecoapp3.uconn.edu/arcgis/services/images/ortho_2006_Color_NAIP/ImageServer/WMSServer?&REQUEST=GetMap&SERVICE=WMS&VERSION=1.3&LAYERS="; //begining of the WMS URL ending with a "?" or a "&".
-      var format = "image/jpeg"; //type of image returned  or image/jpeg
-      //The layer ID.  Can be found when using the layers properties tool in ArcMap
-      var layers = "0"; 
-      var srs = "EPSG:4326"; //projection to display. This is the projection of google map. Don't change unless you know what you are doing.
-      var bbox = ulw.lat() + "," + ulw.lng() + "," + lrw.lat() + "," + lrw.lng();
-      //Add the components of the URL together
-      var url = baseURL + layers + "&Styles=default" + "&SRS=" + srs + "&BBOX=" + bbox + "&width=256" + "&height=256" + "&format=" + format + "&BGCOLOR=0xFFFFFF&TRANSPARENT=true" + "&reaspect=false" + "&CRS=EPSG:4326";
-      return url;
-  }
-
-  function WMSGetTileUrl4(tile, zoom) {
-      var projection = window.mapA.getProjection();
-      var zpow = Math.pow(2, zoom);
-      var ul = new google.maps.Point(tile.x * 256.0 / zpow, (tile.y + 1) * 256.0 / zpow);
-      var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
-      var ulw = projection.fromPointToLatLng(ul);
-      var lrw = projection.fromPointToLatLng(lr);
-      //The user will enter the address to the public WMS layer here.  The data must be in WGS84
-      var baseURL = "http://www.ctecoapp3.uconn.edu/arcgis/services/images/ortho_2004/ImageServer/WMSServer?&REQUEST=GetMap&SERVICE=WMS&VERSION=1.3&LAYERS="; //begining of the WMS URL ending with a "?" or a "&".
-      var format = "image/jpeg"; //type of image returned  or image/jpeg
-      //The layer ID.  Can be found when using the layers properties tool in ArcMap
-      var layers = "0"; 
-      var srs = "EPSG:4326"; //projection to display. This is the projection of google map. Don't change unless you know what you are doing.
-      var bbox = ulw.lat() + "," + ulw.lng() + "," + lrw.lat() + "," + lrw.lng();
-      //Add the components of the URL together
-      var url = baseURL + layers + "&Styles=default" + "&SRS=" + srs + "&BBOX=" + bbox + "&width=256" + "&height=256" + "&format=" + format + "&BGCOLOR=0xFFFFFF&TRANSPARENT=true" + "&reaspect=false" + "&CRS=EPSG:4326";
-      return url;
-  }
-
-  function WMSGetTileUrl5(tile, zoom) {
-      var projection = window.mapA.getProjection();
-      var zpow = Math.pow(2, zoom);
-      var ul = new google.maps.Point(tile.x * 256.0 / zpow, (tile.y + 1) * 256.0 / zpow);
-      var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
-      var ulw = projection.fromPointToLatLng(ul);
-      var lrw = projection.fromPointToLatLng(lr);
-      //The user will enter the address to the public WMS layer here.  The data must be in WGS84
-      var baseURL = "http://www.ctecoapp3.uconn.edu/arcgis/services/images/ortho_1990/ImageServer/WMSServer?&REQUEST=GetMap&SERVICE=WMS&VERSION=1.3&LAYERS="; //begining of the WMS URL ending with a "?" or a "&".
-      var format = "image/jpeg"; //type of image returned  or image/jpeg
-      //The layer ID.  Can be found when using the layers properties tool in ArcMap
-      var layers = "0"; 
-      var srs = "EPSG:4326"; //projection to display. This is the projection of google map. Don't change unless you know what you are doing.
-      var bbox = ulw.lat() + "," + ulw.lng() + "," + lrw.lat() + "," + lrw.lng();
-      //Add the components of the URL together
-      var url = baseURL + layers + "&Styles=default" + "&SRS=" + srs + "&BBOX=" + bbox + "&width=256" + "&height=256" + "&format=" + format + "&BGCOLOR=0xFFFFFF&TRANSPARENT=true" + "&reaspect=false" + "&CRS=EPSG:4326";
-      return url;
-  }
- 
- function WMSGetTileUrl6(tile, zoom) {
-      var projection = window.mapA.getProjection();
-      var zpow = Math.pow(2, zoom);
-      var ul = new google.maps.Point(tile.x * 256.0 / zpow, (tile.y + 1) * 256.0 / zpow);
-      var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
-      var ulw = projection.fromPointToLatLng(ul);
-      var lrw = projection.fromPointToLatLng(lr);
- 
- 	  var baseURL = "http://72.248.187.142/wms/wms.exe?&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.1&LAYERS="; //begining of the WMS URL ending with a "?" or a "&".
-//      var baseURL = "http://www.econmap.com/wms/wms.exe?&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.1&LAYERS="; //begining of the WMS URL ending with a "?" or a "&".
-      var format = "image%2fjpg"; //type of image returned
-      var layers = "_1951_Connecticut_Aerial_Photography-Layer"; //WMS layers to display, comma separated (?)
- 
-      var srs = "EPSG:4326"; //projection to display. This is the projection of google map. Don't change unless you know what you are doing.
-      var bbox = ulw.lng() + "," + ulw.lat() + "," + lrw.lng() + "," + lrw.lat();
-      var url = baseURL + layers + "&Styles=default" + "&SRS=" + srs + "&BBOX=" + bbox + "&width=256" + "&height=256" + "&format=" + format + "&BGCOLOR=0xFFFFFF&TRANSPARENT=false" + "&reaspect=false";
-      //console.log(url);
-      return url;
-  }
-
-  function WMSGetTileUrl7(tile, zoom) {
       var projection = window.mapA.getProjection();
       var zpow = Math.pow(2, zoom);
       var ul = new google.maps.Point(tile.x * 256 / zpow, (tile.y + 1) * 256.0 / zpow);
@@ -532,7 +330,7 @@
       var baseURL = "http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?service=WMS&version=1.1.0&request=GetMap&layers="; //begining of the WMS URL ending with a "?" or a "&".
       var format = "image%2Fjpeg"; //type of image returned  or image/jpeg
       //The layer ID.  Can be found when using the layers properties tool in ArcMap
-      var layers = "MAGIC:1934%20Connecticut%20Aerial%20Photography";
+      var layers = "MAGIC:WestHartford_Zoning_1924";
       var srs = "EPSG:4326"; //projection to display. This is the projection of google map. Don't change unless you know what you are doing.
       var bbox = ulw.lng() + "," + ulw.lat() + "," + lrw.lng() + "," + lrw.lat();
       //Add the components of the URL together
@@ -541,8 +339,109 @@
   }
 
 
-  /* 
-  
+  function WMSGetTileUrl2(tile, zoom) {
+      var projection = window.mapA.getProjection();
+      var zpow = Math.pow(2, zoom);
+      var ul = new google.maps.Point(tile.x * 256 / zpow, (tile.y + 1) * 256.0 / zpow);
+      var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
+      var ulw = projection.fromPointToLatLng(ul);
+      var lrw = projection.fromPointToLatLng(lr);
+      //The user will enter the address to the public WMS layer here.  The data must be in WGS84
+      var baseURL = "http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?service=WMS&version=1.1.0&request=GetMap&layers="; //begining of the WMS URL ending with a "?" or a "&".
+      var format = "image%2Fjpeg"; //type of image returned  or image/jpeg
+      //The layer ID.  Can be found when using the layers properties tool in ArcMap
+      var layers = "MAGIC:WestHartford_Zoning_1930";
+      var srs = "EPSG:4326"; //projection to display. This is the projection of google map. Don't change unless you know what you are doing.
+      var bbox = ulw.lng() + "," + ulw.lat() + "," + lrw.lng() + "," + lrw.lat();
+      //Add the components of the URL together
+      var url = baseURL + layers + "&styles=" + "&bbox=" + bbox +  "&width=512" + "&height=500" + "&srs=" + srs + "&format=" + format;
+      return url;
+  } 
+ 
+
+  function WMSGetTileUrl3(tile, zoom) {
+      var projection = window.mapA.getProjection();
+      var zpow = Math.pow(2, zoom);
+      var ul = new google.maps.Point(tile.x * 256 / zpow, (tile.y + 1) * 256.0 / zpow);
+      var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
+      var ulw = projection.fromPointToLatLng(ul);
+      var lrw = projection.fromPointToLatLng(lr);
+      //The user will enter the address to the public WMS layer here.  The data must be in WGS84
+      var baseURL = "http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?service=WMS&version=1.1.0&request=GetMap&layers="; //begining of the WMS URL ending with a "?" or a "&".
+      var format = "image%2Fjpeg"; //type of image returned  or image/jpeg
+      //The layer ID.  Can be found when using the layers properties tool in ArcMap
+      var layers = "MAGIC:WestHartford_Zoning_1951";
+      var srs = "EPSG:4326"; //projection to display. This is the projection of google map. Don't change unless you know what you are doing.
+      var bbox = ulw.lng() + "," + ulw.lat() + "," + lrw.lng() + "," + lrw.lat();
+      //Add the components of the URL together
+      var url = baseURL + layers + "&styles=" + "&bbox=" + bbox +  "&width=512" + "&height=500" + "&srs=" + srs + "&format=" + format;
+      return url;
+  } 
+ 
+
+
+
+  function WMSGetTileUrl4(tile, zoom) {
+      var projection = window.mapA.getProjection();
+      var zpow = Math.pow(2, zoom);
+      var ul = new google.maps.Point(tile.x * 256 / zpow, (tile.y + 1) * 256.0 / zpow);
+      var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
+      var ulw = projection.fromPointToLatLng(ul);
+      var lrw = projection.fromPointToLatLng(lr);
+      //The user will enter the address to the public WMS layer here.  The data must be in WGS84
+      var baseURL = "http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?service=WMS&version=1.1.0&request=GetMap&layers="; //begining of the WMS URL ending with a "?" or a "&".
+      var format = "image%2Fjpeg"; //type of image returned  or image/jpeg
+      //The layer ID.  Can be found when using the layers properties tool in ArcMap
+      var layers = "MAGIC:WestHartford_Zoning_1960";
+      var srs = "EPSG:4326"; //projection to display. This is the projection of google map. Don't change unless you know what you are doing.
+      var bbox = ulw.lng() + "," + ulw.lat() + "," + lrw.lng() + "," + lrw.lat();
+      //Add the components of the URL together
+      var url = baseURL + layers + "&styles=" + "&bbox=" + bbox +  "&width=512" + "&height=500" + "&srs=" + srs + "&format=" + format;
+      return url;
+  } 
+
+
+ function WMSGetTileUrl5(tile, zoom) {
+      var projection = window.mapA.getProjection();
+      var zpow = Math.pow(2, zoom);
+      var ul = new google.maps.Point(tile.x * 256 / zpow, (tile.y + 1) * 256.0 / zpow);
+      var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
+      var ulw = projection.fromPointToLatLng(ul);
+      var lrw = projection.fromPointToLatLng(lr);
+      //The user will enter the address to the public WMS layer here.  The data must be in WGS84
+      var baseURL = "http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?service=WMS&version=1.1.0&request=GetMap&layers="; //begining of the WMS URL ending with a "?" or a "&".
+      var format = "image%2Fjpeg"; //type of image returned  or image/jpeg
+      //The layer ID.  Can be found when using the layers properties tool in ArcMap
+      var layers = "MAGIC:WestHartford_Zoning_1970";
+      var srs = "EPSG:4326"; //projection to display. This is the projection of google map. Don't change unless you know what you are doing.
+      var bbox = ulw.lng() + "," + ulw.lat() + "," + lrw.lng() + "," + lrw.lat();
+      //Add the components of the URL together
+      var url = baseURL + layers + "&styles=" + "&bbox=" + bbox +  "&width=512" + "&height=500" + "&srs=" + srs + "&format=" + format;
+      return url;
+  } 
+
+
+  function WMSGetTileUrl6(tile, zoom) {
+      var projection = window.mapA.getProjection();
+      var zpow = Math.pow(2, zoom);
+      var ul = new google.maps.Point(tile.x * 256 / zpow, (tile.y + 1) * 256.0 / zpow);
+      var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
+      var ulw = projection.fromPointToLatLng(ul);
+      var lrw = projection.fromPointToLatLng(lr);
+      //The user will enter the address to the public WMS layer here.  The data must be in WGS84
+      var baseURL = "http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?service=WMS&version=1.1.0&request=GetMap&layers="; //begining of the WMS URL ending with a "?" or a "&".
+      var format = "image%2Fjpeg"; //type of image returned  or image/jpeg
+      //The layer ID.  Can be found when using the layers properties tool in ArcMap
+      var layers = "MAGIC:WestHartford_Zoning_1988";
+      var srs = "EPSG:4326"; //projection to display. This is the projection of google map. Don't change unless you know what you are doing.
+      var bbox = ulw.lng() + "," + ulw.lat() + "," + lrw.lng() + "," + lrw.lat();
+      //Add the components of the URL together
+      var url = baseURL + layers + "&styles=" + "&bbox=" + bbox +  "&width=512" + "&height=500" + "&srs=" + srs + "&format=" + format;
+	        //var url = "http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?service=WMS&version=1.1.0&request=GetMap&layers=MAGIC:WestHartford_Zoning_1924&styles=&bbox=-72.81110244884007,41.707632696610894,-72.70163044884008,41.81473489927357&width=512&height=500&srs=EPSG:4326&format=image%2Fjpeg"
+      return url;
+  } 
+
+ /* 
   Map Function
  
   The following section includes the functions the provide the action on the map.  This section is standardized and will not need to be changed by the user to 
@@ -611,20 +510,7 @@
 	  mapA_zoom = false;
     }
 	
-      function updateLocationText() {
-
-      //alert(mapA.getCenter());
-
-      //http://magic.lib.uconn.edu/otl/dualcontrol_aerialchange.html?lat=41.76&long=-72.701&layerA=1934&zoom=15
-
-      var valueText="http://magic.lib.uconn.edu/otl/dualcontrol_aerialchange.html?lat="+(Math.round(mapA.getCenter().lat()*10000)/10000)+"&long="+(Math.round(mapA.getCenter().lng()*10000)/10000)+"&layerA="+mapA.getMapTypeId()+"&layerB="+mapB.getMapTypeId()+"&zoom="+mapA.getZoom();
-
-      //document.getElementById("centeredLocation").value=valueText;
-
-      document.getElementById("centeredLocation").innerHTML=valueText;
-
-       } //end update function	
-	   
+	
 	function clearText() {
 	  var box = document.getElementById("address");
 	  if (box.value == '750 Capitol Ave Hartford, CT') {
@@ -642,8 +528,8 @@
 	if (window.event) keycode = window.event.keyCode;
 	else return true;
 	if (keycode == 13) {
-	var southWest = new google.maps.LatLng(40.982, -73.739);
-	var northEast = new google.maps.LatLng(42.061, -71.778);
+	var southWest = new google.maps.LatLng(41.715, -72.807); 
+	var northEast = new google.maps.LatLng(41.811, -72.711 );
 	var bounds = new google.maps.LatLngBounds(southWest, northEast);
     var address = document.getElementById("address").value;
     if (geocoder) {
@@ -664,7 +550,7 @@
                 	});
 				}
 				else {
-					alert("Please enter an address in Connecticut, or be more specific in your search.");
+					alert("Please enter an address in West Hartford, Connecticut, or be more specific in your search.");
 				}
                 
             } else {
@@ -678,8 +564,8 @@
 	
 	
 	function codeAddress() {
-	var southWest = new google.maps.LatLng(40.982, -73.739);
-	var northEast = new google.maps.LatLng(42.061, -71.778);
+	var southWest = new google.maps.LatLng(41.715, -72.807); 
+	var northEast = new google.maps.LatLng(41.811, -72.711 );
 	var bounds = new google.maps.LatLngBounds(southWest, northEast);
     var address = document.getElementById("address").value;
     if (geocoder) {
@@ -700,7 +586,7 @@
                 	});
 				}
 				else {
-					alert("Please enter a specific Connecticut address such as: 100 Main St Hartford, CT");
+					alert("Please enter a specific West Hartford Connecticut address such as: 101 Main St West Hartford, CT");
 				}
                 
             } else {
@@ -742,63 +628,11 @@
     return vars;
 }
 
-  //This section calls the functions that allows the user to click on a link in a table of contents and allows for the icon to open up an info window.  
-  //To allow for the icon to be viewed in both maps you will need to create two seperate functions and add markers on both maps with each marker pointing to a different
-  //function.  The example here uses two different UCONN points each calling a different function and each doing something different.  Could be a good tool
-  //for comparing historical photographs between the 1934 image and the 2008 image
 
-
-  //As set up at this moment this tool will center over the icon, but not zoom to.
-
-
-  // This function picks up the click and opens the corresponding info window - this stays the same.
-//  function myclick(i) {
-//      google.maps.event.trigger(gmarkers[i], "click");
-//  }
-
-  // A function to create the marker and set up the event window function 
-//  function createMarker(latlng, name, html) {
-//      var contentString = html;
-//      var marker = new google.maps.Marker({
-//          position: latlng,
-//          setzoom: 17,
-//          map: mapA,
-//          zIndex: Math.round(latlng.lat() * -100000) << 5
-//      });
-
-//      google.maps.event.addListener(marker, 'click', function() {
-//          infowindow.setContent(contentString);
-//          infowindow.open(mapA, marker);
-//      });
-      // save the info we need to use later for the side_bar
-//      gmarkers.push(marker);
-      // add a line to the side_bar html
-//      side_bar_html += '<a href="javascript:myclick(' + (gmarkers.length - 1) + ')">' + name + '<\/a><br>';
-//  }
-
-  // A function to create the marker and set up the event window function for MapB, notice the different name for the function - createMarkerB
- // function createMarkerB(latlng, name, html) {
- //     var contentString = html;
-  //    var marker = new google.maps.Marker({
-  //        position: latlng,
-  //        setzoom: 17,
-   //       map: mapB,
-   //       zIndex: Math.round(latlng.lat() * -100000) << 5
-   //   });
-
-  //    google.maps.event.addListener(marker, 'click', function() {
-  //        infowindow.setContent(contentString);
-  //        infowindow.open(mapB, marker);
-  //    });
-      //save the info we need to use later for the side_bar
-  //    gmarkers.push(marker);
-      // add a line to the side_bar html
- //     side_bar_html += '<a href="javascript:myclick(' + (gmarkers.length - 1) + ')">' + name + '<\/a><br>';
-//  } 
 </script> 
 
 <!-- InstanceEndEditable -->
-<!-- **** Jack substituted otl-custom.css in place of UCONN TEMPLATE  **** -->
+<!-- **** Jack substituted otl-custom.css in place of UConn template **** -->
 <link rel="stylesheet" type="text/css" href="otl-custom.css" media="screen"/>
 <!--[if gte IE 6]><style type="text/css">@import "http://magic.lib.uconn.edu/css/global/4.0/head-foot/hf-ie.css";</style><![endif]-->
 <!--[if gte IE 6]><style type="text/css">@import "http://magic.lib.uconn.edu/css/global/4.0/middle/base/ie.css";</style><![endif]-->
@@ -815,25 +649,27 @@
 <!-- InstanceEndEditable -->
 </head>
 <body onload="initialize()"> 
-<div id="main" class="container"> 
-  <div id="content" class="append-1 prepend-1 span-22">
-    <div id="entire_mashup">
-       <div id="holc_mashup">
+
+  <div id="main" class="container"> 
+    <div id="content" class="append-1 prepend-1 span-22">
+      <div id="entire_mashup">
+          <div id="holc_mashup">
             <div id="mapA" style="position:absolute; left:0px; width:428px; height:500px; "></div> 
             <div id="mapB" style="position:absolute; left:430px; width:428px; height:500px; "></div> 
-    	</div>
-	<div id="mashup_search_layers">
-		<div id="mashup_search">Use the search box below to locate an address in Connecticut.
-    			<input id="address" type="text" value="750 Capitol Ave Hartford, CT" title="Enter an address here" size="55" style="color:#666666" onmousedown="clearText()" onKeyPress="return codeAddressEnter()"/>
-    			<input type="button" value="Find Address" onclick="codeAddress()"/>
-        	</div>
-		<div id="mashup_toggle">Toggle map layers<br />
-        		<input name="box" type="checkbox" id="towns" onclick="toggleLayer(town_layer); toggleLayer(town_layer2)"/>CT Towns
-        	</div>
-	</div>
-    </div>
+    	  </div>
+    	  <div id="mashup_search_layers">
+            <div id="mashup_search">Use the search box below to locate an address in West Hartford, CT.
+    	      <input id="address" type="text" value="101 Main St West Hartford, CT" title="Enter an address here" size="55" style="color:#666666" onmousedown="clearText()" onKeyPress="return codeAddressEnter()"/>
+    	      <input type="button" value="Find Address" onclick="codeAddress()"/>
+            </div>
+            <div id="mashup_toggle">Toggle map layers<br />
+              <input name="box" type="checkbox" id="towns" onclick="toggleLayer(town_layer); toggleLayer(town_layer2)"/>CT Towns
+              <!-- <input name="box" type="checkbox" id="zoning" onclick="toggleLayer(zoning_layer); toggleLayer(zoning_layer)" checked="checked"/>Current Zoning Layer-->
+            </div>
+	  </div>
+      </div> 
   </div>
-</div>
+
 <!--foot-wrap-->
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
@@ -846,4 +682,5 @@ pageTracker._trackPageview();
 </script>
 
 </body>
-<!-- InstanceEnd --></html>
+<!-- InstanceEnd -->
+</html>
