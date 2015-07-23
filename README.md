@@ -59,6 +59,7 @@ iframe code to insert
 ```
 [iframe src="//jackdougherty.github.io/otl-magic/dualzoom-schooldistricts.html" width="675" height="600"]
 ```
+See original map, sources, and credits at UConn Libraries MAGIC: http://magic.lib.uconn.edu/otl/dualzoom_schooldistricts.html
 
 Original caption: Compare the boundaries and enrollments of any two school districts listed to view differences between city versus county-wide public school systems in the United States. Read more and share your story at On The Line. Sources: US Census, 2010 TIGER/Line Shapefiles: School Districts; US DOE, CCD, 2009-10 school year district enrollments
 
@@ -66,6 +67,8 @@ Original caption: Compare the boundaries and enrollments of any two school distr
 http://jackdougherty.github.io/otl-magic/dualcontrol-aerialchange.html
 
 IN PROGRESS
+
+See original map, sources, and credits at UConn Libraries MAGIC: http://magic.lib.uconn.edu/otl/dualcontrol_aerialchange.html
 
 Original caption: Search any Connecticut address to compare aerial imagery from two time periods, side by side. Our default map displays 1934 versus the current satellite view (with additional layers from the 1950s, 1970s, and 1990s to come). For example, view the influence of post-war interstate highway development on urban neighborhoods (such as the I-84 exchange in Hartford’s Parkville neighborhood)(http://magic.lib.uconn.edu/otl/dualcontrol_aerialchange.html?lat=41.76&long=-72.701&layerA=1934&zoom=15), or suburban commercial and residential development on formerly rural farmland (such as WestFarms Mall in Farmington/West Hartford)(http://magic.lib.uconn.edu/otl/dualcontrol_aerialchange.html?lat=41.723321&long=-72.762176&layerA=1934&zoom=15).
 
@@ -78,9 +81,20 @@ YouTube demo: https://youtu.be/VsyZyHo9j6w
 ## Zoning Maps of West Hartford, 1924-present
 http://jackdougherty.github.io/otl-magic/dualcontrol-zoning-westhartford.html
 
-IN PROGRESS
+iframe code to insert
+```
+[iframe src="//jackdougherty.github.io/otl-magic/dualcontrol-zoning-westhartford.html" width="675" height="600"]
+```
+See original map, sources, and credits at UConn Libraries MAGIC: http://magic.lib.uconn.edu/otl/dualcontrol-zoning-westhartford.html
 
+Original caption: In 1924, during its early phase of mass suburbanization, West Hartford became the first Connecticut municipality to enact zoning regulations to manage residential, commercial, and industrial land use. This dual-view interactive tool allows users to compare maps from consultant Robert Whitten’s West Hartford Zoning report (1924) to the present. The original report stated that West Hartford’s primary function was to serve the housing needs of “all classes and all grades of economic ability. . .[including] factory workers, office employees, and the various business and professional groups” who work in Hartford. But it also separated town residents by wealth and excluded others who could not afford to live there. Zoning policies created residential districts with minimum lot sizes to promote more expensive single-family homes, thus making multi-family housing “uneconomic” to build, without expressly prohibiting it. Read more and share your comments at On The Line.
 
+To send web visitors to any Connecticut location on this map, create a URL link in this format: (display)
 
-### TO DO for both timesliders
-- Replace depreciated YUI slider (http://yui.github.io/yui2/docs/yui_2.9.0_full/slider/index.html) with jQuery slider (https://jqueryui.com/slider/#steps)
+Sources: Whitten, Robert Harvey. West Hartford Zoning: Report to the Zoning Commission on the Zoning of West Hartford. West Hartford, Conn: Zoning Commission, 1924 (courtesy of the Connecticut State Library).
+
+Zoning maps, 1930, 1951, 1960, 1970, 1988, Town of West Hartford, Connecticut (with assistance from Jeffrey Roller).
+
+### TO DO 
+- for both timesliders, replace depreciated YUI slider (http://yui.github.io/yui2/docs/yui_2.9.0_full/slider/index.html) with jQuery slider (https://jqueryui.com/slider/#steps)
+- for zoning map, try to insert additional georeference TIF layers (1930, 1951, etc.) in drop-down menu
