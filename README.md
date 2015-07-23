@@ -28,7 +28,6 @@ See original map, sources, and credits at UConn Libraries MAGIC: http://magic.li
 
 Caption embedded in GitHub map for design reasons
 
-
 ## Racial Change in the Hartford Region, 1900-2010
 http://jackdougherty.github.io/otl-magic/timeslider-racethematic.html
 
@@ -47,7 +46,6 @@ iframe code to insert
 ```
 [iframe src="//jackdougherty.github.io/otl-magic/timeslider-homevalue.html" width="675" height="720"]
 ```
-
 See original map, sources, and credits at UConn Libraries MAGIC: http://magic.lib.uconn.edu/otl/timeslider_homevalue.html
 
 Original caption: Drag the time slider (or click on a decade) to view the relative value of a single-family home in the Hartford region. Click on any town to view its name. Notes: Average Dwelling Value, indexed to Hartford region mean, where darker green means higher dollar value. 1910-1980 based on CT Tax Commissioner assessed value of average dwelling for Hartford County, while 1990-2000 (actually 1991, 2002) based on CRCOG single-family home sales for Hartford region. 
@@ -66,8 +64,10 @@ Original caption: Compare the boundaries and enrollments of any two school distr
 ## Neighborhood Change in Connecticut, 1934-present
 http://jackdougherty.github.io/otl-magic/dualcontrol-aerialchange.html
 
-IN PROGRESS
-
+iframe code to insert
+```
+[iframe src="//jackdougherty.github.io/otl-magic/dualcontrol-aerialchange.html" width="675" height="600"]
+```
 See original map, sources, and credits at UConn Libraries MAGIC: http://magic.lib.uconn.edu/otl/dualcontrol_aerialchange.html
 
 Original caption: Search any Connecticut address to compare aerial imagery from two time periods, side by side. Our default map displays 1934 versus the current satellite view (with additional layers from the 1950s, 1970s, and 1990s to come). For example, view the influence of post-war interstate highway development on urban neighborhoods (such as the I-84 exchange in Hartford’s Parkville neighborhood)(http://magic.lib.uconn.edu/otl/dualcontrol_aerialchange.html?lat=41.76&long=-72.701&layerA=1934&zoom=15), or suburban commercial and residential development on formerly rural farmland (such as WestFarms Mall in Farmington/West Hartford)(http://magic.lib.uconn.edu/otl/dualcontrol_aerialchange.html?lat=41.723321&long=-72.762176&layerA=1934&zoom=15).
@@ -95,6 +95,6 @@ Sources: Whitten, Robert Harvey. West Hartford Zoning: Report to the Zoning Comm
 
 Zoning maps, 1930, 1951, 1960, 1970, 1988, Town of West Hartford, Connecticut (with assistance from Jeffrey Roller).
 
-### TO DO 
+## TO DO 
 - for both timesliders, replace depreciated YUI slider (http://yui.github.io/yui2/docs/yui_2.9.0_full/slider/index.html) with jQuery slider (https://jqueryui.com/slider/#steps)
 - for zoning map, try to insert additional georeference TIF layers (1930, 1951, etc.) in drop-down menu
