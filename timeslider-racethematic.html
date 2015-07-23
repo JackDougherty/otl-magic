@@ -262,8 +262,8 @@ function initialize() {
 
 
 <!-- InstanceEndEditable -->
-<!-- ****JACK substituted custom-otl.css in place of the UConn CSS here **** -->
-<link rel="stylesheet" type="text/css" href="custom-otl.css" media="screen"/> 
+<!-- ****JACK substituted otl-custom.css in place of the UConn CSS here **** -->
+<link rel="stylesheet" type="text/css" href="otl-custom.css" media="screen"/> 
 <!--[if gte IE 6]><style type="text/css">@import "http://magic.lib.uconn.edu/css/global/4.0/head-foot/hf-ie.css";</style><![endif]-->
 <!--[if gte IE 6]><style type="text/css">@import "http://magic.lib.uconn.edu/css/global/4.0/middle/base/ie.css";</style><![endif]-->
 <!--[if gte IE 6]><style type="text/css">@import "http://magic.lib.uconn.edu/css/global/4.0/middle/uconn/ie.css";</style><![endif]-->
@@ -282,55 +282,25 @@ function initialize() {
 
 <!-- Jack reorganized divs   InstanceBeginEditable  -->
 <body class="yui-skin-sam">
-<div id="content" class="append-1 prepend-1 span-22" > 
-
-
-<!--BEGIN SOURCE CODE FOR EXAMPLE =============================== --> 
-
- 
-<!-- 
-    You supply your own markup for the slider:
-    - The thumb element should be a child of the slider background
-    - The tabindex attribute lets this element receive focus in most browsers.
-    - If the slider background can receive focus, the arrow keys can be used to change
-      this slider's value.
-    - We use an img element rather than a css background for the thumb to get around
-      a performance bottleneck when animating the thumb in IE
-    - Both elements should have a position style: relative or absolute
-    - Don't apply a css border to the slider background
---> 
-<div id="entire_mashup">
-<div id="race_mashup">
-
-
-
-    <div id="race_overview">Click Map to Display Town & Data<br /><img src="http://magic.lib.uconn.edu/otl/animationImages/race_towns_data_overview.png"></div>
-    
-    
-      <div id="race_search">Search Hartford area
-    	<input id="address" type="text" value="Hartford, CT" title="Enter a CT town here" size="15" style="color:#666666" onmousedown="clearText()" onKeyPress="return codeAddressEnter()"/> 
-    	<input type="button" value="Go" onclick="codeAddress()"/>
+<div id="main" class="container"> 
+  <div id="content" class="append-1 prepend-1 span-22" > 
+    <div id="entire_mashup">
+      <div id="race_mashup">
+        <div id="race_overview">Click Map to Display Town & Data<br /><img src="http://magic.lib.uconn.edu/otl/animationImages/race_towns_data_overview.png"></div>
+        <div id="race_search">Search Hartford area
+    	    <input id="address" type="text" value="Hartford, CT" title="Enter a CT town here" size="15" style="color:#666666" onmousedown="clearText()" onKeyPress="return codeAddressEnter()"/> 
+    	    <input type="button" value="Go" onclick="codeAddress()"/>
         </div>
-
-
-    <div id="race_legend">% White Population <img src="http://magic.lib.uconn.edu/otl/animationImages/race_legend.png"></div>
-    
-
-    
-    <div id="map_canvas" style="position:absolute; width:650px; height:490px; "></div>    </form>
-    <img src="http://magic.lib.uconn.edu/otl/animationImages/bg_map_slider.png">
- <h4>Currently Viewing: <strong><span id="slider-value">1900</span></strong></h4> 
-    <div id="raceslider-bg" class="yui-h-slider" tabindex="-1" title="Slider"> 
-        <div id="slider-thumb" class="yui-slider-thumb"><img src="thumb-n.gif"></div> 
-	
-</div> 
-
-
- 
-<!--END SOURCE CODE FOR EXAMPLE =============================== --> 
-
-
-<!-- InstanceEndEditable -->
+          <div id="race_legend">% White Population <img src="http://magic.lib.uconn.edu/otl/animationImages/race_legend.png"></div>
+          <div id="map_canvas" style="position:absolute; width:650px; height:490px; "></div>    </form>
+          <img src="http://magic.lib.uconn.edu/otl/animationImages/bg_map_slider.png">
+          <h4>Currently Viewing: <strong><span id="slider-value">1900</span></strong></h4> 
+                <div id="raceslider-bg" class="yui-h-slider" tabindex="-1" title="Slider"> 
+                  <div id="slider-thumb" class="yui-slider-thumb"><img src="thumb-n.gif"></div> 
+		</div> 
+    </div>
+  </div>
+</div>
 
 <!--foot-wrap-->
 <script type="text/javascript">

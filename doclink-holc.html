@@ -20,7 +20,9 @@
  
  //creating the variable for the geocoder
  	var geocoder;
+
  //setting up the variables for the different map type to appear in the dropdown above each map.  There needs to a new var for each new wms layer
+
     var wmsMapType;
     var wmsMapTypeB;
     var wmsMapTypeC;
@@ -30,6 +32,7 @@
     var wmsMapTypeG;
   
  //setting up the variables for the different kml layers to be included
+
  	var holc_layer;
  	var holc_layer2;
  
@@ -62,6 +65,7 @@
       center: connecticut
 	  
   }
+
   var mapB_setup = {
       zoom: 12,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -79,17 +83,22 @@
   
     mapA = new google.maps.Map(document.getElementById("mapA"), mapA_setup);
     mapB = new google.maps.Map(document.getElementById("mapB"), mapB_setup);
+
     //set up the kml layers to toggle.  
    
 	 holc_layer = new google.maps.KmlLayer('http://magic.lib.uconn.edu/magic_2/vector/37840/holcboundaryct_37840_0064_1937_s24_holc_national_archives_trinity_1_kml.kmz', { preserveViewport: true });    
+
+
+
 		var imageBounds1 = new google.maps.LatLngBounds(
 		new google.maps.LatLng(41.603,-72.859),
         new google.maps.LatLng(41.959,-72.399));
-        // Jack note: later try to convert GroundOverlay into KML layer of WH-H-EH boundaries; change saturation level
-        var townImage = new google.maps.GroundOverlay("http://magic.lib.uconn.edu/test/New_HOLC_howser_2.png", imageBounds1);
+    var townImage = new google.maps.GroundOverlay("http://magic.lib.uconn.edu/test/New_HOLC_howser_2.png", imageBounds1);
 	 
 	 townImage.setMap(mapA);
+
 //Creating the WMS layer options.  This code just creates the Google imagemaptype options for each wms layer.  In the options the function that calls the individual wms layer is set 
+
  		var wmsOptions = {
             alt: "2010",
             getTileUrl: WMSGetTileUrl,
@@ -100,6 +109,8 @@
             tileSize: new google.maps.Size(256, 256),
             credit: 'Image Credit: CT DEP'
         };
+
+
        var wmsOptionsB = {
             alt: "2006",
             getTileUrl: WMSGetTileUrl2,
@@ -110,6 +121,7 @@
             tileSize: new google.maps.Size(256, 256),
             credit: 'Image Credit: CT DEP'
         };
+
         var wmsOptionsC = {
             alt: "2004",
             getTileUrl: WMSGetTileUrl3,
@@ -131,6 +143,7 @@
             tileSize: new google.maps.Size(256, 256),
 			credit: 'Image Credit: CT DEP'
         };   
+
 		var wmsOptionsE = {
             alt: "1934",
             getTileUrl: WMSGetTileUrl5,
@@ -142,6 +155,7 @@
 			credit: 'Image Credit: CT State Library, MAGIC'
         };
 		
+
   		var wmsOptionsF = {
             alt: "2009",
             getTileUrl: WMSGetTileUrl6,
@@ -152,6 +166,7 @@
             tileSize: new google.maps.Size(256, 256),
             credit: 'Image Credit: CT DEP'
         };
+
         var wmsOptionsG = {
             alt: "2008",
             getTileUrl: WMSGetTileUrl7,
@@ -162,6 +177,7 @@
             tileSize: new google.maps.Size(256, 256),
 			credit: 'Image Credit: CT DEP'
         };
+
 //Creating the object to create the ImageMapType that will call the WMS Layer Options. 
         wmsMapType = new google.maps.ImageMapType(wmsOptions);
         wmsMapTypeB = new google.maps.ImageMapType(wmsOptionsB);
@@ -170,6 +186,7 @@
 		wmsMapTypeE = new google.maps.ImageMapType(wmsOptionsE);
         wmsMapTypeF = new google.maps.ImageMapType(wmsOptionsF);
         wmsMapTypeG = new google.maps.ImageMapType(wmsOptionsG);
+
 //Layers to appear on Map B (the right hand side map).  The first string will give the map the map a name in the drop down and the second object calls the map type     
 		mapA.mapTypes.set('2010', wmsMapType);
         mapA.mapTypes.set('2009', wmsMapTypeF);
@@ -178,6 +195,7 @@
 		mapA.mapTypes.set('2004', wmsMapTypeC);
 		mapA.mapTypes.set('1990', wmsMapTypeD);
 		mapA.mapTypes.set('1934', wmsMapTypeE);
+
 	
 //Layers to appear on Map B (the right hand side map)
 		mapB.mapTypes.set('2010', wmsMapType);
@@ -187,6 +205,7 @@
 		mapB.mapTypes.set('2004', wmsMapTypeC);
 		mapB.mapTypes.set('1990', wmsMapTypeD);
 		mapB.mapTypes.set('1934', wmsMapTypeE);
+
     
     
 //Controling the Layers that appear in Map A.  You can set certain maps to appear in Map A or in Map B.  In this example they appear in both maps.
@@ -207,7 +226,9 @@
             style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
         }
     });
+
 //Controling the Layers that appear in Map B
+
     mapB.setOptions({
         mapTypeControlOptions: {
             mapTypeIds: [
@@ -231,7 +252,10 @@
     //visits the page
     //mapA.setMapTypeId('1934 Aerials');
     //mapB.setMapTypeId('1934 Aerials');
+
+
     //Setting up the objects that can be toggled.  Right now they are only set to work on Map A.  They can be changed pretty easily to work in tandem on each map
+
     toggleLayer(holc_layer);    	
     
     //create the event listener to track the actions of one map and mimic on the other
@@ -240,6 +264,7 @@
 	google.maps.event.addListener(mapB, 'drag', MoveB);
     google.maps.event.addListener(mapA, 'zoom_changed', zoomA);
     google.maps.event.addListener(mapB, 'zoom_changed', zoomB);
+
     //Setting up the KML objects that can be toggled.  If the user would like to add a kml to an individual map they need to define the 
     //layer for that map using the appropriate function.  toggleLayer will work with Mapa and toggleLayer2 adds layers to mapB
     toggleLayer(town_layer);
@@ -322,8 +347,11 @@
     
     
   }
+
+
   //The code that reads in the WMS file.  To change the WMS layer the user would update the layers line.  As this is constructed now you need to have this code for each WMS layer.  I will need to rework
   // so calling the WMS address become a global function.  
+
   function WMSGetTileUrl(tile, zoom) {
       var projection = window.mapA.getProjection();
       var zpow = Math.pow(2, zoom);
@@ -342,6 +370,7 @@
       var url = baseURL + layers + "&Styles=default" + "&SRS=" + srs + "&BBOX=" + bbox + "&width=256" + "&height=256" + "&format=" + format + "&BGCOLOR=0xFFFFFF&TRANSPARENT=true" + "&reaspect=false" + "&CRS=EPSG:4326";
       return url;
   }
+
   function WMSGetTileUrl2(tile, zoom) {
       var projection = window.mapA.getProjection();
       var zpow = Math.pow(2, zoom);
@@ -360,6 +389,7 @@
       var url = baseURL + layers + "&styles=" + "&bbox=" + bbox +  "&width=512" + "&height=500" + "&srs=" + srs + "&format=" + format;
       return url;
   }
+
   function WMSGetTileUrl3(tile, zoom) {
       var projection = window.mapA.getProjection();
       var zpow = Math.pow(2, zoom);
@@ -378,6 +408,7 @@
       var url = baseURL + layers + "&styles=" + "&bbox=" + bbox +  "&width=512" + "&height=500" + "&srs=" + srs + "&format=" + format;
       return url;
   }
+
   function WMSGetTileUrl4(tile, zoom) {
       var projection = window.mapA.getProjection();
       var zpow = Math.pow(2, zoom);
@@ -396,6 +427,7 @@
       var url = baseURL + layers + "&styles=" + "&bbox=" + bbox +  "&width=512" + "&height=500" + "&srs=" + srs + "&format=" + format;
       return url;
   }
+
   function WMSGetTileUrl5(tile, zoom) {
       var projection = window.mapA.getProjection();
       var zpow = Math.pow(2, zoom);
@@ -414,6 +446,7 @@
       var url = baseURL + layers + "&styles=" + "&bbox=" + bbox +  "&width=512" + "&height=500" + "&srs=" + srs + "&format=" + format;
       return url;
   }
+
   function WMSGetTileUrl6(tile, zoom) {
       var projection = window.mapA.getProjection();
       var zpow = Math.pow(2, zoom);
@@ -432,6 +465,7 @@
       var url = baseURL + layers + "&Styles=default" + "&SRS=" + srs + "&BBOX=" + bbox + "&width=256" + "&height=256" + "&format=" + format + "&BGCOLOR=0xFFFFFF&TRANSPARENT=true" + "&reaspect=false" + "&CRS=EPSG:4326";
       return url;
   }
+
   function WMSGetTileUrl7(tile, zoom) {
       var projection = window.mapA.getProjection();
       var zpow = Math.pow(2, zoom);
@@ -450,7 +484,10 @@
       var url = baseURL + layers + "&styles=" + "&bbox=" + bbox +  "&width=512" + "&height=500" + "&srs=" + srs + "&format=" + format;
       return url;
   } 
+
   
+
+
  // ====== Handle the Map movements ======
       
       // Variables that log whether we are currently causing the maps to be moved
@@ -480,12 +517,19 @@
     
 	
   //==========Sync Map Zoom ===========
+
   // Variables that log whether we are currently causing the maps to be zoomed
+
         var mapA_zoom = 0;
+
         var mapB_zoom = 0;
+
  
+
  // This function handles what happens when MapA moves
+
       // If we arent moving it (i.e. if the user is moving it) move MapB to match
+
       function zoomA(){
         mapB_zoom = true;
 	  if (mapA_zoom == false) {
@@ -585,6 +629,8 @@
         });
     }	
   }
+
+
   
  
   //Toggle layers function.  Calls the individual layer as defined earlier.  This function will work for any number of defined kml layers 
@@ -609,26 +655,49 @@
   }
 </script> 
 
+<!-- InstanceEndEditable -->
+<!-- **** Jack substituted otl-custom.css in place of UConn template **** -->
+<link rel="stylesheet" type="text/css" href="otl-custom.css" media="screen"/>
+<!--[if gte IE 6]><style type="text/css">@import "http://magic.lib.uconn.edu/css/global/4.0/head-foot/hf-ie.css";</style><![endif]-->
+<!--[if gte IE 6]><style type="text/css">@import "http://magic.lib.uconn.edu/css/global/4.0/middle/base/ie.css";</style><![endif]-->
+<!--[if gte IE 6]><style type="text/css">@import "http://magic.lib.uconn.edu/css/global/4.0/middle/uconn/ie.css";</style><![endif]-->
+<link rel="stylesheet" type="text/css" href="http://magic.lib.uconn.edu/css/global/4.0/head-foot/hf-print.css" media="print"/>
+<link rel="stylesheet" type="text/css" href="http://magic.lib.uconn.edu/css/global/4.0/middle/uconn/print.css" media="print"/>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://magic.lib.uconn.edu/javascript/head.js"></script>
+<script type="text/javascript" src="http://magic.lib.uconn.edu/css/global/4.0/middle/base/nav.js"></script>
+<script type="text/javascript" src="https://alert.uconn.edu/alert/alert.js"></script>
+
+
+
+
 <body onload="initialize()">
-          <div id="holc_mashup">
-          	<div id="mapA" style="position:relative; height:500px; "></div> 
-            	<div id="mapB" style="visibility:hidden; "></div>  <!-- Jack temp solution: hide Map B to keep Map A functional-->
+  <div id="main" class="container"> 
+    <div id="content" class="append-1 prepend-1 span-22">
+      <div id="entire_mashup">
+	<div id="holc_mashup">
+          <div id="mapA" style="position:absolute; left:0px; width:428px; height:500px; "></div> 
+          <div id="mapB" style="position:absolute; left:430px; width:428px; height:500px; "></div> 
     	</div>
-      <div id="mashup_search" align="center">Search address:.
-    	<input id="address" type="text" value="300 Capitol Ave Hartford, CT" title="Enter an address here" size="55" style="color:#666666" onmousedown="clearText()" onKeyPress="return codeAddressEnter()"/> 
-    	<input type="button" value="Find Address" onclick="codeAddress()"/>
-        </div>
-
-
-        <div id="mashup_toggle" align="center">Toggle map layers<br />
-    	 <!-- <input name="box" type="checkbox" checked="true" id="holc" onclick="toggleLayer(holc_layer)" />    	HOLC Areas, 1937-->
-
-            	<input name="box" type="checkbox" id="holc" onclick="toggleLayer(holc_layer)" checked="CHECKED" />
-    	HOLC Areas, 1937
-        <!-- <input name="box" type="checkbox" checked="true" id="towns" onclick="toggleImage()" />CT Towns-->
-
-        </div>
-
+    	<div id="holc_mashup_caption">
+    	  <img src="http://magic.lib.uconn.edu/images/holc_legend_inset.png" width="129" height="111" alt="HOLC_legend" class="floatLeft" style="display:inline"/>
+    	  Click colored regions to view pages from the Home Owners' Loan Corporation (HOLC) appraisal report, which this federal agency created with local lenders to evaluate the &quot;trend of desirability&quot; in residential areas in Hartford and over 200 other cities during the late 1930s. The HOLC color-coded map portrayed the highest grade (A) in green and the lowest grade (D) in red. This government agency considered not only housing conditions but also the &quot;social status of the population,&quot; and downgraded neighborhoods with non-white, immigrant, and poor residents. In later decades, these actions became associated with the   discriminatory practice of &quot;redlining.&quot; See also the two original maps   (<a href="http://magic.lib.uconn.edu/magic_2/raster/37840/hdimg_37840_000_1937_s00_HOLC_1_tf_hartford.zip" target="_blank">Hartford-West Hartford</a> and <a href="http://magic.lib.uconn.edu/magic_2/raster/37840/hdimg_37840_000_1937_s00_HOLC_1_tf_east_hartford.zip" target="_blank">East Hartford</a>), the <a href="http://magic.lib.uconn.edu/magic_2/vector/37840/primary_source/hdimg_37840_064_1937_holc_national_archives_trinity.pdf" title="full appraisal report" target="_blank">full appraisal report</a>, and a <a href="http://magic.lib.uconn.edu/magic_2/vector/37840/primary_source/hdimg_37840_064_1937_holc_national_archives_trinity.xls" title="searchable spreadsheet" target="_blank">searchable spreadsheet</a><br/>. 
+    	</div>
+	<div id="mashup_search_layers">
+            <div id="mashup_search">Use the search box below to locate an address in the Hartford area.
+    	      <input id="address" type="text" value="300 Capitol Ave Hartford, CT" title="Enter an address here" size="55" style="color:#666666" onmousedown="clearText()" onKeyPress="return codeAddressEnter()"/> 
+    	      <input type="button" value="Find Address" onclick="codeAddress()"/>
+            </div>
+            <div id="mashup_toggle">Toggle map layers<br />
+    	      <!-- <input name="box" type="checkbox" checked="true" id="holc" onclick="toggleLayer(holc_layer)" />    	HOLC Areas, 1937-->
+              <input name="box" type="checkbox" id="holc" onclick="toggleLayer(holc_layer)" checked="CHECKED" />
+    	      HOLC Areas, 1937
+              <!-- <input name="box" type="checkbox" checked="true" id="towns" onclick="toggleImage()" />CT Towns-->
+             </div>
+	 </div>
+      </div>
+    </div>
+  </div>
 
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
