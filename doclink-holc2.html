@@ -655,26 +655,46 @@
   }
 </script> 
 
+<!-- InstanceEndEditable -->
+<!-- **** Jack substituted otl-custom.css in place of UConn template **** -->
+<link rel="stylesheet" type="text/css" href="otl-custom.css" media="screen"/>
+<!--[if gte IE 6]><style type="text/css">@import "http://magic.lib.uconn.edu/css/global/4.0/head-foot/hf-ie.css";</style><![endif]-->
+<!--[if gte IE 6]><style type="text/css">@import "http://magic.lib.uconn.edu/css/global/4.0/middle/base/ie.css";</style><![endif]-->
+<!--[if gte IE 6]><style type="text/css">@import "http://magic.lib.uconn.edu/css/global/4.0/middle/uconn/ie.css";</style><![endif]-->
+<link rel="stylesheet" type="text/css" href="http://magic.lib.uconn.edu/css/global/4.0/head-foot/hf-print.css" media="print"/>
+<link rel="stylesheet" type="text/css" href="http://magic.lib.uconn.edu/css/global/4.0/middle/uconn/print.css" media="print"/>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://magic.lib.uconn.edu/javascript/head.js"></script>
+<script type="text/javascript" src="http://magic.lib.uconn.edu/css/global/4.0/middle/base/nav.js"></script>
+<script type="text/javascript" src="https://alert.uconn.edu/alert/alert.js"></script>
+
+
 <body onload="initialize()">
-          <div id="holc_mashup">
-            <div id="mapA" style="position:absolute; left:0px; width:428px; height:500px; "></div> 
-            <div id="mapB" style="position:absolute; left:430px; width:428px; height:500px; "></div> 
+  <div id="main" class="container"> 
+    <div id="content" class="append-1 prepend-1 span-22">
+      <div id="entire_mashup">
+	<div id="holc_mashup">
+          <div id="mapA" style="position:absolute; left:0px; width:428px; height:500px; "></div> 
+          <div id="mapB" style="position:absolute; left:430px; width:428px; height:500px; "></div> 
     	</div>
-      <div id="mashup_search">Use the search box below to locate an address in the Hartford area.
-    	<input id="address" type="text" value="300 Capitol Ave Hartford, CT" title="Enter an address here" size="55" style="color:#666666" onmousedown="clearText()" onKeyPress="return codeAddressEnter()"/> 
-    	<input type="button" value="Find Address" onclick="codeAddress()"/>
-        </div>
-
-
-        <div id="mashup_toggle">Toggle map layers<br />
-    	 <!-- <input name="box" type="checkbox" checked="true" id="holc" onclick="toggleLayer(holc_layer)" />    	HOLC Areas, 1937-->
-
-            	<input name="box" type="checkbox" id="holc" onclick="toggleLayer(holc_layer)" checked="CHECKED" />
-    	HOLC Areas, 1937
-        <!-- <input name="box" type="checkbox" checked="true" id="towns" onclick="toggleImage()" />CT Towns-->
-
-        </div>
-
+    	<div id="holc_mashup_caption">
+    	  <img src="http://magic.lib.uconn.edu/images/holc_legend_inset.png" width="129" height="111" alt="HOLC_legend" class="floatLeft" style="display:inline"/>
+	  <div id="mashup_search_layers">
+            <div id="mashup_search">Use the search box below to locate an address in the Hartford area.
+    	      <input id="address" type="text" value="300 Capitol Ave Hartford, CT" title="Enter an address here" size="55" style="color:#666666" onmousedown="clearText()" onKeyPress="return codeAddressEnter()"/> 
+    	      <input type="button" value="Find Address" onclick="codeAddress()"/>
+            </div>
+            <div id="mashup_toggle">Toggle map layers<br />
+    	      <!-- <input name="box" type="checkbox" checked="true" id="holc" onclick="toggleLayer(holc_layer)" />    	HOLC Areas, 1937-->
+              <input name="box" type="checkbox" id="holc" onclick="toggleLayer(holc_layer)" checked="CHECKED" />
+    	      HOLC Areas, 1937
+              <!-- <input name="box" type="checkbox" checked="true" id="towns" onclick="toggleImage()" />CT Towns-->
+             </div>
+	   </div>
+	</div>
+      </div>
+    </div>
+  </div>
 
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
