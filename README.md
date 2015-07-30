@@ -22,11 +22,17 @@ http://jackdougherty.github.io/otl-magic/doclink-holc.html
 
 iframe code to insert
 ```
-[iframe src="//jackdougherty.github.io/otl-magic/doclink-holc.html" width="675" height="720"]
+[iframe src="//jackdougherty.github.io/otl-magic/doclink-holc.html" width="725" height="500"]
 ```
 See original map, sources, and credits at UConn Libraries MAGIC: http://magic.lib.uconn.edu/otl/doclink_holc.html
 
-Caption embedded in GitHub map for design reasons
+Original caption: Click colored regions to view pages from the Home Owners' Loan Corporation (HOLC) appraisal report, which this federal agency created with local lenders to evaluate the "trend of desirability" in residential areas in Hartford and over 200 other cities during the late 1930s. The HOLC color-coded map portrayed the highest grade (A) in green and the lowest grade (D) in red. This government agency considered not only housing conditions but also the "social status of the population," and downgraded neighborhoods with non-white, immigrant, and poor residents. In later decades, these actions became associated with the discriminatory practice of "redlining." See also the two original maps (Hartford-West Hartford and East Hartford), the full appraisal report, and a searchable spreadsheet.
+
+Links embedded in original caption:
+-http://magic.lib.uconn.edu/magic_2/raster/37840/hdimg_37840_000_1937_s00_HOLC_1_tf_hartford.zip
+-http://magic.lib.uconn.edu/magic_2/raster/37840/hdimg_37840_000_1937_s00_HOLC_1_tf_east_hartford.zip
+-http://magic.lib.uconn.edu/magic_2/vector/37840/primary_source/hdimg_37840_064_1937_holc_national_archives_trinity.pdf
+-http://magic.lib.uconn.edu/magic_2/vector/37840/primary_source/hdimg_37840_064_1937_holc_national_archives_trinity.xls
 
 ## Racial Change in the Hartford Region, 1900-2010
 http://jackdougherty.github.io/otl-magic/timeslider-racethematic.html
@@ -48,7 +54,7 @@ iframe code to insert
 ```
 See original map, sources, and credits at UConn Libraries MAGIC: http://magic.lib.uconn.edu/otl/timeslider_homevalue.html
 
-Original caption: Drag the time slider (or click on a decade) to view the relative value of a single-family home in the Hartford region. Click on any town to view its name. Notes: Average Dwelling Value, indexed to Hartford region mean, where darker green means higher dollar value. 1910-1980 based on CT Tax Commissioner assessed value of average dwelling for Hartford County, while 1990-2000 (actually 1991, 2002) based on CRCOG single-family home sales for Hartford region. 
+Original caption: Drag the time slider (or click on a decade) to view the relative value of a single-family home in the Hartford region. Click on any town to view its name. Notes: Average Dwelling Value, indexed to Hartford region mean, where darker green means higher dollar value. 1910-1980 based on CT Tax Commissioner assessed value of average dwelling for Hartford County, while 1990-2000 (actually 1991, 2002) based on CRCOG single-family home sales for Hartford region.
 
 ## School District Boundary Comparison Viewer
 http://jackdougherty.github.io/otl-magic/dualzoom-schooldistricts.html
@@ -74,7 +80,7 @@ Original caption: Search any Connecticut address to compare aerial imagery from 
 
 Copy the dynamic web link below to share the map currently shown above:
 (displays link here)
-Read more and comment at On The Line. 
+Read more and comment at On The Line.
 
 YouTube demo: https://youtu.be/VsyZyHo9j6w
 
@@ -95,6 +101,6 @@ Sources: Whitten, Robert Harvey. West Hartford Zoning: Report to the Zoning Comm
 
 Zoning maps, 1930, 1951, 1960, 1970, 1988, Town of West Hartford, Connecticut (with assistance from Jeffrey Roller).
 
-## TO DO 
+## TO DO
 - for both timesliders, replace depreciated YUI slider (http://yui.github.io/yui2/docs/yui_2.9.0_full/slider/index.html) with jQuery slider (https://jqueryui.com/slider/#steps)
 - for zoning map, try to insert additional georeference TIF layers (1930, 1951, etc.) in drop-down menu
