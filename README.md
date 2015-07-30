@@ -11,7 +11,7 @@ http://jackdougherty.github.io/otl-magic/doclink-covenant.html
 
 iframe code to insert
 ```
-[iframe src="//jackdougherty.github.io/otl-magic/doclink-covenant.html" width="600" height="520"]
+[iframe src="http://jackdougherty.github.io/otl-magic/doclink-covenant.html" width="600" height="520"]
 ```
 See original map, sources, and credits at UConn Libraries MAGIC: http://magic.lib.uconn.edu/otl/doclink_covenant.html
 
@@ -22,7 +22,7 @@ http://jackdougherty.github.io/otl-magic/doclink-holc.html
 
 iframe code to insert
 ```
-[iframe src="//jackdougherty.github.io/otl-magic/doclink-holc.html" width="725" height="500"]
+[iframe src="http://jackdougherty.github.io/otl-magic/doclink-holc.html" width="725" height="500"]
 ```
 See original map, sources, and credits at UConn Libraries MAGIC: http://magic.lib.uconn.edu/otl/doclink_holc.html
 
@@ -39,7 +39,7 @@ http://jackdougherty.github.io/otl-magic/timeslider-racethematic.html
 
 iframe code to insert
 ```
-[iframe src="//jackdougherty.github.io/otl-magic/timeslider-racethematic.html" width="675" height="720"]
+[iframe src="http://jackdougherty.github.io/otl-magic/timeslider-racethematic.html" width="675" height="720"]
 ```
 See original map, sources, and credits at UConn Libraries MAGIC: http://magic.lib.uconn.edu/otl/timeslider_racethematic.html
 
@@ -50,7 +50,7 @@ http://jackdougherty.github.io/otl-magic/timeslider-homevalue.html
 
 iframe code to insert
 ```
-[iframe src="//jackdougherty.github.io/otl-magic/timeslider-homevalue.html" width="675" height="720"]
+[iframe src="http://jackdougherty.github.io/otl-magic/timeslider-homevalue.html" width="675" height="720"]
 ```
 See original map, sources, and credits at UConn Libraries MAGIC: http://magic.lib.uconn.edu/otl/timeslider_homevalue.html
 
@@ -61,7 +61,7 @@ http://jackdougherty.github.io/otl-magic/dualzoom-schooldistricts.html
 
 iframe code to insert
 ```
-[iframe src="//jackdougherty.github.io/otl-magic/dualzoom-schooldistricts.html" width="675" height="600"]
+[iframe src="http://jackdougherty.github.io/otl-magic/dualzoom-schooldistricts.html" width="675" height="600"]
 ```
 See original map, sources, and credits at UConn Libraries MAGIC: http://magic.lib.uconn.edu/otl/dualzoom_schooldistricts.html
 
@@ -72,7 +72,7 @@ http://jackdougherty.github.io/otl-magic/dualcontrol-aerialchange.html
 
 iframe code to insert
 ```
-[iframe src="//jackdougherty.github.io/otl-magic/dualcontrol-aerialchange.html" width="675" height="600"]
+[iframe src="http://jackdougherty.github.io/otl-magic/dualcontrol-aerialchange.html" width="675" height="600"]
 ```
 See original map, sources, and credits at UConn Libraries MAGIC: http://magic.lib.uconn.edu/otl/dualcontrol_aerialchange.html
 
@@ -89,7 +89,7 @@ http://jackdougherty.github.io/otl-magic/dualcontrol-zoning-westhartford.html
 
 iframe code to insert
 ```
-[iframe src="//jackdougherty.github.io/otl-magic/dualcontrol-zoning-westhartford.html" width="675" height="600"]
+[iframe src="http://jackdougherty.github.io/otl-magic/dualcontrol-zoning-westhartford.html" width="675" height="600"]
 ```
 See original map, sources, and credits at UConn Libraries MAGIC: http://magic.lib.uconn.edu/otl/dualcontrol-zoning-westhartford.html
 
@@ -102,5 +102,6 @@ Sources: Whitten, Robert Harvey. West Hartford Zoning: Report to the Zoning Comm
 Zoning maps, 1930, 1951, 1960, 1970, 1988, Town of West Hartford, Connecticut (with assistance from Jeffrey Roller).
 
 ## TO DO
+- continue to resize all maps to be max 700px (based on 10px padding in PBT style)
 - for both timesliders, replace depreciated YUI slider (http://yui.github.io/yui2/docs/yui_2.9.0_full/slider/index.html) with jQuery slider (https://jqueryui.com/slider/#steps)
 - for zoning map, try to insert additional georeference TIF layers (1930, 1951, etc.) in drop-down menu
