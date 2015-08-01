@@ -46,8 +46,7 @@
 
  function initialize() {
     geocoder = new google.maps.Geocoder();
-    var connecticut = new google.maps.LatLng(41.7636111, -72.6855556);
-    var massachusetts = new google.maps.LatLng(41.7636111, -72.6855556);
+    var center = new google.maps.LatLng(41.754163, -72.684722); // specific to this map
 
 
     var mapA_setup = {
@@ -62,7 +61,7 @@
       maxZoom: 17,
       minZoom: 6,
       scaleControl: true,
-      center: connecticut
+      center: center
 
   }
 
@@ -78,7 +77,7 @@
       maxZoom: 17,
       minZoom: 6,
 	  scaleControl: true,
-      center: connecticut
+      center: center
   }
 
     mapA = new google.maps.Map(document.getElementById("mapA"), mapA_setup);
@@ -680,18 +679,15 @@
           <div id="mapA" style="position:absolute; left:0px; width:349px; height:450px; "></div>
           <div id="mapB" style="position:absolute; left:350px; width:349px; height:450px; "></div>
           <!-- repositioned legend -->
-          <div id="legend" style="position:absolute; bottom:25px; left:351px; z-index:3; background-color:#fff">
-            <img src="http://magic.lib.uconn.edu/images/holc_legend_inset.png" width="129" height="111" alt="HOLC_legend" style="display:inline"/>
+          <div id="legend" style="position:absolute; bottom:25px; right:355px; z-index:3; background-color:#fff">
+            <img src="http://magic.lib.uconn.edu/images/holc_legend_inset.png" width="116" height="100" alt="HOLC_legend" style="display:inline"/>
           </div>
     	</div>
-	<div id="mashup_search_layers">
-            <div id="mashup_search" style="background-color:#fff; border:#000">Search for an address in the Hartford area
-              <input id="address" type="text" value="300 Blue Hills Avenue, Hartford CT" title="Enter an address here" size="55" style="color:#666666" onmousedown="clearText()" onKeyPress="return codeAddressEnter()"/>
-    	        <input type="button" value="Search" onclick="codeAddress()"/>
-            </div>
-            <div id="mashup_toggle" style="width:200px; background-color:#fff; border:#000">
-              <input name="box" type="checkbox" id="holc" onclick="toggleLayer(holc_layer)" checked="CHECKED" />HOLC Areas, 1937
-             </div>
+	<div id="mashup_search_layers" style="background-color:#fff; border:#000">
+      <div style="float:left"><input name="box" type="checkbox" id="holc" onclick="toggleLayer(holc_layer)" checked="CHECKED" />HOLC Areas, 1937</div>
+      <div style="float:right">Search for an address in the Hartford area <input id="address" type="text" value="300 Blue Hills Avenue, Hartford CT" title="Enter an address here" size="45" style="color:#666666" onmousedown="clearText()" onKeyPress="return codeAddressEnter()"/><input type="button" value="Search" onclick="codeAddress()"/></div>
+  </div>
+
 	 </div>
       </div>
     </div>
