@@ -48,9 +48,10 @@ Original caption: Drag the time slider (or click on a decade) to view changes in
 ## Home Value Index in the Hartford Region, 1910-2010*
 http://jackdougherty.github.io/otl-magic/timeslider-homevalue.html
 
+TO DO: reformat this map to move legend inside map box
 iframe code to insert
 ```
-[iframe src="http://jackdougherty.github.io/otl-magic/timeslider-homevalue.html" width="100%" height="720"]
+[iframe src="http://jackdougherty.github.io/otl-magic/timeslider-homevalue.html" width="100%" height="630"]
 ```
 See original map, sources, and credits at UConn Libraries MAGIC: http://magic.lib.uconn.edu/otl/timeslider_homevalue.html
 
