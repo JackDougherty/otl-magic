@@ -6,6 +6,16 @@ On The Line maps and tools created with [MAGIC UConn Libraries](http://magic.lib
 - **otl-custom.css** created to address timeslider css issues
 - **thumb-n.gif** uploaded to address depreciation issue in timeslider
 
+## To Do
+- Continue to reformat all maps to fit within OnTheLine PBT theme, which has max width of 700 px, and is responsive for mobile devices
+- Should I set all div tags as percentages, rather than pixels, to auto-resize within the browser? Or keep as 700px wide?
+- Should I set my iframe shortcode to be 100% of space, or 700 px width?
+- MAGIC has agreed to update data for home value index timeslider
+- long-term: consider pros and cons of converting timeslider maps to Leaflet auto-play timesliders
+- for Google Map timesliders, consider replacing deprecated YUI slider (http://yui.github.io/yui2/docs/yui_2.9.0_full/slider/index.html) with jQuery slider (https://jqueryui.com/slider/#steps)
+- for zoning map, try to insert additional georeference TIF layers (1930, 1951, etc.) in drop-down menu
+
+
 ## Race Restrictive Covenants in Property Deeds, Hartford-area, 1940s
 http://jackdougherty.github.io/otl-magic/doclink-covenant.html
 
@@ -101,8 +111,3 @@ To send web visitors to any Connecticut location on this map, create a URL link 
 Sources: Whitten, Robert Harvey. West Hartford Zoning: Report to the Zoning Commission on the Zoning of West Hartford. West Hartford, Conn: Zoning Commission, 1924 (courtesy of the Connecticut State Library).
 
 Zoning maps, 1930, 1951, 1960, 1970, 1988, Town of West Hartford, Connecticut (with assistance from Jeffrey Roller).
-
-## TO DO
-- continue to resize all maps to be max 700px (based on 10px padding in PBT style) OR resize as 100% with proportions
-- for both timesliders, replace depreciated YUI slider (http://yui.github.io/yui2/docs/yui_2.9.0_full/slider/index.html) with jQuery slider (https://jqueryui.com/slider/#steps)
-- for zoning map, try to insert additional georeference TIF layers (1930, 1951, etc.) in drop-down menu
