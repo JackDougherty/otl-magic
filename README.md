@@ -1,5 +1,5 @@
 # magic-otl
-**Outdated** Google Maps and tools created 2010-12 with [MAGIC UConn Libraries](http://magic.lib.uconn.edu). Simplified versions of the original open-source code to more easily insert interactive maps as iframes into the web edition of [On The Line book](http://ontheline.trincoll.edu). **See newer Leaflet maps in https://github.com/ontheline **
+**Outdated** Google Maps and tools created 2010-12 with [MAGIC UConn Libraries](http://magic.lib.uconn.edu). Simplified versions of the original open-source code to more easily insert interactive maps as iframes into the web edition of [On The Line book](http://ontheline.trincoll.edu). **See newer Leaflet maps** in https://github.com/ontheline
 
 ## Notes
 - **All underscores** (_) in the original pathnames have been changed to hyphens (-) to be consistent with new OTL digital material
